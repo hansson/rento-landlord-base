@@ -1,0 +1,38 @@
+body {
+  padding-top: 70px;
+}
+
+.jumbotron { 
+	background: url(../img/houses.jpg);
+	height: 300px;
+}
+
+.green { 
+	background-color: #5cb85c;
+	color: #eee;
+}
+
+.blue { 
+	background-color: #428bca;
+	color: #eee;
+}
+
+.orange { 
+	background-color: #f0ad4e;
+	color: #eee;
+}
+
+.info-box { 
+	height: 380px;
+	font-size: 16px;
+}
+
+.col-md-4, .col-md-8 { 
+	border-radius:15px;
+	border: 5px solid #fff;
+}
+
+thead td { 
+	font-weight: bold;
+}
+

@@ -1,0 +1,62 @@
+{
+  "pages": [
+    {
+      "text": "Hem",
+      "link": "index.php"
+    },
+    {
+      "text": "Lediga lägenheter",
+      "link": "apartments.php"
+    },
+    {
+      "text": "Våra områden",
+      "subPage": [
+        {
+          "text": "Område 1",
+          "link": "area1.php"
+        },
+        {
+          "text": "Område 2",
+          "link": "area2.php"
+        }
+      ]
+    },
+    {
+      "text": "Hyresgästinfo",
+      "subPage": [
+        {
+          "text": "Ordningsregler",
+          "link": "rules.php"
+        },
+        {
+          "text": "Inflytt",
+          "link": "move_in.php"
+        },
+        {
+          "text": "Avflytt",
+          "link": "move_out.php"
+        },
+        {
+          "text": "Sida",
+          "link": "#"
+        },
+        {
+          "text": "...",
+          "link": "#"
+        },
+        {
+          "text": "Sida",
+          "link": "#"
+        },
+        {
+          "text": "Felanmälan",
+          "link": "error_report.php"
+        }
+      ]
+    },
+    {
+      "text": "Kontakt",
+      "link": "contact.php"
+    }
+  ]
+}
