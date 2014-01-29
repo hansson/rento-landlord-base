@@ -10,8 +10,8 @@
 
     <title>Hyresvärd - Rento.nu</title>
 
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/rento.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/rento.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -31,7 +31,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Rento.nu</a>
+          <a class="navbar-brand" href="#">Rento.nu </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -41,10 +41,6 @@
     </div>
 
     <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-      </div>
 
       <div class="row">
           <div class="col-md-4 green info-box">
@@ -77,10 +73,10 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/global.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/global.js"></script>
     <script>
-      loadNavbar('navbar.json');
+      loadNavbar('admin-navbar.json');
     </script>
 
   </body>

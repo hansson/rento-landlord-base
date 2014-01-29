@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "text": "Admin",
+      "link": "index.php"
+    },
+    {
+      "text": "Lediga lägenheter",
+      "link": "apartments.php"
+    },
+    {
+      "text": "Intresseanmälningar",
+      "link": "interest.php"
+    }
+  ]
+}

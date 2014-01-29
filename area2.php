@@ -48,7 +48,7 @@
               <img src="img/houses.jpg" class="img-responsive img-rounded" style="margin-bottom: 2px" />
           </div>
           <div class="col-md-8">
-              <h2>Storgatan 1-3</h2>
+              <h2>Stortorget 1-3</h2>
               <p>På den här sidan kan man t.ex. beskriva sina olika områden eller fastigheter. Man kan beskriva området på lite olika sätt, med text, med bilder eller med punktlistor!</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus hendrerit ipsum, id dictum libero fermentum ac. Donec ac rhoncus enim. Praesent sed euismod nisl. Ut eu nibh eros. Duis sed elit ut ligula tincidunt ultricies ac eget diam. Sed faucibus nulla enim, at ullamcorper eros vestibulum vel. Nulla facilisi. Ut sed aliquet leo. Nunc pulvinar eros mauris, id porta nunc condimentum ut. Sed porttitor sed metus sed ultricies. Suspendisse erat enim, condimentum vitae justo eu, eleifend gravida nibh. Vestibulum a justo nec dui tempor mollis sed a metus. Maecenas mollis facilisis leo, a bibendum felis aliquet nec.</p>
               <p>Nam posuere lacus sed lorem tristique mollis. Pellentesque volutpat nisl vitae volutpat venenatis. Proin dapibus pulvinar est, vel varius magna dictum vel. Phasellus varius tempus mi tincidunt euismod. Suspendisse in diam eros. Praesent mauris quam, posuere vitae odio venenatis, facilisis blandit quam. In at velit venenatis, porta turpis vitae, aliquam sem. Mauris ut erat lorem. Phasellus rutrum vestibulum velit, et pellentesque lacus dictum in. Vestibulum id egestas dolor. Duis hendrerit elementum elit sit amet elementum. Etiam suscipit nisl in purus volutpat venenatis.</p>
