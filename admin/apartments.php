@@ -46,7 +46,7 @@
 
         <form class="form-horizontal">
 
-        <div class="col-md-3">
+          <div class="col-md-3">
 
             <label class="control-label" for="address">Adress</label>  
             <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
@@ -121,7 +121,7 @@
                     <td>1</td>
                     <td>Ja</td>
                     <td>2014-04-13</td>
-                    <td><button id="update" name="update" class="btn btn-info">Ändra</button> <button id="remove" name="remove" class="btn btn-danger">Ta bort</button></td>
+                    <td><button id="update" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove" name="remove" class="btn btn-danger">Ta bort</button></td>
                   </tr>
                 </tbody>
             </table>
@@ -136,6 +136,58 @@
     <div id="footer">
       <div class="container">
         <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Ändra lägenhet</h4>
+          </div>
+          <div class="modal-body">
+
+            <label class="control-label" for="address">Adress</label>  
+            <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="rent">Hyra</label>  
+            <input id="rent" name="rent" type="text" placeholder="" class="form-control input-md">           
+         
+            <label class="control-label" for="size">Storlek</label>  
+            <input id="size" name="size" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="rooms">Rum</label>  
+            <input id="rooms" name="rooms" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="floor">Våning</label>  
+            <input id="floor" name="floor" type="text" placeholder="" class="form-control input-md">
+              
+            <label class="control-label" for="elevator">Hiss</label>
+            <select id="elevator" name="elevator" class="form-control">
+              <option value="Ja">Ja</option>
+              <option value="Nej">Nej</option>
+            </select>
+
+            <label class="control-label" for="city">Ort</label>  
+            <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="area">Område</label>  
+            <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="freeFrom">Inflytt</label>  
+            <input id="freeFrom" name="freeFrom" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="summary">Beskrivning</label>
+            <textarea class="form-control" id="summary" name="summary" style="height: 155px; resize: none;"></textarea>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info">Spara</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
+          </div>
+        </div>
       </div>
     </div>
 
