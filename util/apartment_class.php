@@ -1,18 +1,17 @@
 <?php
 class Apartment {
-    // property declaration
     public $address = '';
-    public $rent = 0;
-    public $size = 0;
-    public $rooms = 0;
-    public $floor = '1';
+    public $rent = '';
+    public $size = '';
+    public $rooms = '';
+    public $floor = '';
     public $elevator = '';
     public $city = '';
     public $area = '';
     public $freeFrom = '';
     public $summary = '';
+    public $id = '';
 
-    // method declaration
     public function get_json() {
         return json_encode(get_object_vars($this));
     }

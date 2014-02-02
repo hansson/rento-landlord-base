@@ -113,7 +113,7 @@
                     <td></td>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="apartment-table-body">
                   <tr>
                     <td>Storgatan 1</td>
                     <td>4000 kr</td>
@@ -149,44 +149,51 @@
           </div>
           <div class="modal-body">
 
-            <label class="control-label" for="address">Adress</label>  
-            <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
+            <form id="update-form" class="form-horizontal" action="../api/apartments.php" method="post">
 
-            <label class="control-label" for="rent">Hyra</label>  
-            <input id="rent" name="rent" type="text" placeholder="" class="form-control input-md">           
-         
-            <label class="control-label" for="size">Storlek</label>  
-            <input id="size" name="size" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="address">Adress</label>  
+              <input id="modal-address" name="address" type="text" placeholder="" class="form-control input-md" required>
 
-            <label class="control-label" for="rooms">Rum</label>  
-            <input id="rooms" name="rooms" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="rent">Hyra</label>  
+              <input id="modal-rent" name="rent" type="text" placeholder="" class="form-control input-md">           
+           
+              <label class="control-label" for="size">Storlek</label>  
+              <input id="modal-size" name="size" type="text" placeholder="" class="form-control input-md">
 
-            <label class="control-label" for="floor">Våning</label>  
-            <input id="floor" name="floor" type="text" placeholder="" class="form-control input-md">
-              
-            <label class="control-label" for="elevator">Hiss</label>
-            <select id="elevator" name="elevator" class="form-control">
-              <option value="Ja">Ja</option>
-              <option value="Nej">Nej</option>
-            </select>
+              <label class="control-label" for="rooms">Rum</label>  
+              <input id="modal-rooms" name="rooms" type="text" placeholder="" class="form-control input-md">
 
-            <label class="control-label" for="city">Ort</label>  
-            <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="floor">Våning</label>  
+              <input id="modal-floor" name="floor" type="text" placeholder="" class="form-control input-md">
+                
+              <label class="control-label" for="elevator">Hiss</label>
+              <select id="modal-elevator" name="elevator" class="form-control">
+                <option value="Ja">Ja</option>
+                <option value="Nej">Nej</option>
+              </select>
 
-            <label class="control-label" for="area">Område</label>  
-            <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="city">Ort</label>  
+              <input id="modal-city" name="city" type="text" placeholder="" class="form-control input-md">
 
-            <label class="control-label" for="freeFrom">Inflytt</label>  
-            <input id="freeFrom" name="freeFrom" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="area">Område</label>  
+              <input id="modal-area" name="area" type="text" placeholder="" class="form-control input-md">
 
-            <label class="control-label" for="summary">Beskrivning</label>
-            <textarea class="form-control" id="summary" name="summary" style="height: 155px; resize: none;"></textarea>
+              <label class="control-label" for="freeFrom">Inflytt</label>  
+              <input id="modal-freeFrom" name="freeFrom" type="text" placeholder="" class="form-control input-md">
+
+              <label class="control-label" for="summary">Beskrivning</label>
+              <textarea id="modal-summary" class="form-control"  name="summary" style="height: 155px; resize: none;"></textarea>
+
+              <input id="modal-id" name="id" type="hidden" placeholder="" class="form-control input-md">
+
+            </form>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info">Spara</button>
+            <button id="submit-update-form" type="button" class="btn btn-info" data-dismiss="modal">Spara</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
           </div>
+
         </div>
       </div>
     </div>
@@ -196,6 +203,54 @@
     <script src="../js/global.js"></script>
     <script>
       loadNavbar('admin-navbar.json');
+
+      $('#update-form').on('submit', function(event){
+
+        var link = $(this).attr('action');
+
+        $.post(link,$(this).serialize(),function(data, status) {
+          $("#updateModal").modal('hide');
+        });
+
+        return false;
+
+      });
+
+      $('#submit-update-form').on('click', function(event){
+        $('#update-form').submit();
+      })
+
+      $.get('../api/apartments.php', function(data) {
+        var html = '';
+        for (var i = data.length - 1; i >= 0; i--) {
+          html += '<tr>';
+          html += '<td>' + data[i].address +'</td>';
+          html += '<td>' + data[i].rent +'</td>';
+          html += '<td>' + data[i].size +'</td>';
+          html += '<td>' + data[i].rooms +'</td>';
+          html += '<td>' + data[i].elevator +'</td>';
+          html += '<td>' + data[i].freeFrom +'</td>';
+          html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove" name="remove-' + i +'" class="btn btn-danger">Ta bort</button></td>';
+          html += '</tr>'
+        };
+
+        $('#apartment-table-body').html(html);
+
+        $('[id^=update-]').on('click', function(event){
+          var index = event.target.id.split('-')[1];
+          $('#modal-address').val(data[index].address);
+          $('#modal-rent').val(data[index].rent);
+          $('#modal-size').val(data[index].size);
+          $('#modal-rooms').val(data[index].rooms);
+          $('#modal-floor').val(data[index].floor);
+          $('#modal-elevator').val(data[index].elevator);
+          $('#modal-city').val(data[index].city);
+          $('#modal-area').val(data[index].area);
+          $('#modal-freeFrom').val(data[index].freeFrom);
+          $('#modal-summary').val(data[index].summary);
+          $('#modal-id').val(data[index].id);
+        });
+      });
     </script>
 
   </body>
