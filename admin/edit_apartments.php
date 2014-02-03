@@ -44,7 +44,7 @@
 
       <div class="row">
 
-        <form class="form-horizontal">
+        <form id="create-form" class="form-horizontal" action="../api/apartments.php" method="post">
 
           <div class="col-md-3">
 
@@ -204,7 +204,7 @@
     <script>
       loadNavbar('admin-navbar.json');
 
-      $('#update-form').on('submit', function(event){
+      $('form').on('submit', function(event){
 
         var link = $(this).attr('action');
 
@@ -215,6 +215,8 @@
         return false;
 
       });
+
+
 
       $('#submit-update-form').on('click', function(event){
         $('#update-form').submit();
@@ -230,7 +232,7 @@
           html += '<td>' + data[i].rooms +'</td>';
           html += '<td>' + data[i].elevator +'</td>';
           html += '<td>' + data[i].freeFrom +'</td>';
-          html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove" name="remove-' + i +'" class="btn btn-danger">Ta bort</button></td>';
+          html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
           html += '</tr>'
         };
 
@@ -249,6 +251,11 @@
           $('#modal-freeFrom').val(data[index].freeFrom);
           $('#modal-summary').val(data[index].summary);
           $('#modal-id').val(data[index].id);
+        });
+
+        $('[id^=remove-]').on('click', function(event){
+          $.post('../api/apartments.php','id=' + event.target.id.split('-')[1], function(data, status) {
+          });
         });
       });
     </script>

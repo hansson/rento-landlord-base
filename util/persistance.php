@@ -2,8 +2,16 @@
 require 'apartment_class.php';
 
 function get_db_connection() {
-	try {  
-		return new PDO("mysql:host=localhost;dbname=rento", "asdasd", "asdasd");  
+	try { 
+		$ini_vars = parse_ini_file('util/db.ini');
+		if(!$ini_vars) {
+			$ini_vars = parse_ini_file('../util/db.ini');
+		}
+		$host=$ini_vars['mysql_address']; // Host name
+		$username=$ini_vars['mysql_username']; // Mysql username
+		$password=$ini_vars['mysql_password']; // Mysql password
+		$db_name=$ini_vars['mysql_database']; // Database name
+		return new PDO("mysql:host=" . $host .  ";dbname=" . $db_name, $username, $password);  
 	}  
 	catch(PDOException $e) {  
 		echo $e->getMessage();  
@@ -12,9 +20,9 @@ function get_db_connection() {
 
 function store_apartment($apartment) {
 	$DBH = get_db_connection();
-	$STH = $DBH->prepare('INSERT INTO apartments (address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary) value (:address, :rent, :size, :rooms, :floor, :elevator, :city, :area, :freeFrom, :summary)');  
+	$STH = $DBH->prepare('INSERT INTO apartments (id, address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary) value (:id, :address, :rent, :size, :rooms, :floor, :elevator, :city, :area, :freeFrom, :summary)');  
 	$STH->execute((array)$apartment);
- }
+}
 
 function fetch_apartments() {
 	$DBH = get_db_connection();
@@ -44,6 +52,12 @@ function update_apartment($apartment) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('UPDATE apartments SET address = :address, rent = :rent, size = :size, rooms = :rooms, floor = :floor, elevator = :elevator, city = :city, area = :area, freeFrom = :freeFrom, summary = :summary WHERE id =:id');  
 	$STH->execute((array)$apartment);
+}
+
+function remove_apartment($id) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('DELETE from apartments WHERE id = :id');  
+	$STH->execute(array( 'id' => $id));
 }
 
 

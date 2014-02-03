@@ -1,24 +1,3 @@
-  <?php 
-    require 'util/persistance.php';
-    $apartment = new Apartment();
-    $apartment->address = 'Address2';
-    $apartment->rent = 'asdasd';
-    $apartment->size = 'asdasd';
-    $apartment->rooms = 'asdasd';
-    $apartment->floor = 'asdasd';
-    $apartment->elevator = 'asdasd';
-    $apartment->city = 'asdasd';
-    $apartment->area = 'asdasd';
-    $apartment->freeFrom = 'asdasd';
-    $apartment->summary = 'asdasd';
-    //store_apartment($apartment);
-    
-    $apartments = fetch_apartments();
-    foreach ($apartments as $apartment) {
-      echo $apartment->get_json();
-    }
-  ?>  
-
 <!DOCTYPE html>
 <html lang="sv">
   <head>
@@ -40,6 +19,7 @@
   </head>
 
   <body>
+
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
