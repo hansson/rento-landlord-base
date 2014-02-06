@@ -48,6 +48,28 @@ function fetch_apartments() {
 	return $apartments;
 }
 
+function fetch_apartment($id) {
+	$DBH = get_db_connection();
+	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, id from apartments WHERE id = :id');  
+	$STH->execute(array( 'id' => $id));
+	while($row = $STH->fetch(PDO::FETCH_OBJ)) {  
+		$apartment = new Apartment();
+		$apartment->address = $row->address;
+		$apartment->rent = $row->rent;
+		$apartment->size = $row->size;
+		$apartment->rooms = $row->rooms;
+		$apartment->floor = $row->floor;
+		$apartment->elevator = $row->elevator;
+		$apartment->city = $row->city;
+		$apartment->area = $row->area;
+		$apartment->freeFrom = $row->freeFrom;
+		$apartment->summary = $row->summary;
+		$apartment->id = $row->id;
+		return $apartment;
+	} 
+
+}
+
 function update_apartment($apartment) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('UPDATE apartments SET address = :address, rent = :rent, size = :size, rooms = :rooms, floor = :floor, elevator = :elevator, city = :city, area = :area, freeFrom = :freeFrom, summary = :summary WHERE id =:id');  
