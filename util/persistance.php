@@ -20,13 +20,13 @@ function get_db_connection() {
 
 function store_apartment($apartment) {
 	$DBH = get_db_connection();
-	$STH = $DBH->prepare('INSERT INTO apartments (id, address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary) value (:id, :address, :rent, :size, :rooms, :floor, :elevator, :city, :area, :freeFrom, :summary)');  
+	$STH = $DBH->prepare('INSERT INTO apartments (id, address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName) value (:id, :address, :rent, :size, :rooms, :floor, :elevator, :city, :area, :freeFrom, :summary, :imageName)');  
 	$STH->execute((array)$apartment);
 }
 
 function fetch_apartments() {
 	$DBH = get_db_connection();
-	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, id from apartments');  
+	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, id from apartments');  
 	$STH->setFetchMode(PDO::FETCH_OBJ); 
 	$apartments = array();
 	while($row = $STH->fetch()) {  
@@ -41,6 +41,7 @@ function fetch_apartments() {
 		$apartment->area = $row->area;
 		$apartment->freeFrom = $row->freeFrom;
 		$apartment->summary = $row->summary;
+		$apartment->imageName = $row->imageName;
 		$apartment->id = $row->id;
 		$apartments[] = $apartment;
 	} 
@@ -50,7 +51,7 @@ function fetch_apartments() {
 
 function fetch_apartment($id) {
 	$DBH = get_db_connection();
-	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, id from apartments WHERE id = :id');  
+	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, id from apartments WHERE id = :id');  
 	$STH->execute(array( 'id' => $id));
 	while($row = $STH->fetch(PDO::FETCH_OBJ)) {  
 		$apartment = new Apartment();
@@ -64,6 +65,7 @@ function fetch_apartment($id) {
 		$apartment->area = $row->area;
 		$apartment->freeFrom = $row->freeFrom;
 		$apartment->summary = $row->summary;
+		$apartment->imageName = $row->imageName;
 		$apartment->id = $row->id;
 		return $apartment;
 	} 
@@ -72,7 +74,7 @@ function fetch_apartment($id) {
 
 function update_apartment($apartment) {
 	$DBH = get_db_connection();
-	$STH = $DBH->prepare('UPDATE apartments SET address = :address, rent = :rent, size = :size, rooms = :rooms, floor = :floor, elevator = :elevator, city = :city, area = :area, freeFrom = :freeFrom, summary = :summary WHERE id =:id');  
+	$STH = $DBH->prepare('UPDATE apartments SET address = :address, rent = :rent, size = :size, rooms = :rooms, floor = :floor, elevator = :elevator, city = :city, area = :area, freeFrom = :freeFrom, summary = :summary , imageName = :imageName WHERE id =:id');  
 	$STH->execute((array)$apartment);
 }
 

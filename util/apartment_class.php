@@ -10,6 +10,7 @@ class Apartment {
     public $area = '';
     public $freeFrom = '';
     public $summary = '';
+    public $imageName = '';
     public $id = '';
 
     public function get_json() {

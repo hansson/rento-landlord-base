@@ -12,6 +12,7 @@
 
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/rento.css" rel="stylesheet">
+    <link href="../css/jquery-upload-file.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -93,7 +94,7 @@
           </div>
 
           <div class="col-md-12">
-            <button id="save" name="save" class="btn btn-success">Lägg till</button>
+            <button id="save" name="save" class="btn btn-success">Spara</button>
             <hr>
           </div>
 
@@ -114,15 +115,6 @@
                   </tr>
                 </thead>
                 <tbody id="apartment-table-body">
-                  <tr>
-                    <td>Storgatan 1</td>
-                    <td>4000 kr</td>
-                    <td>40 kvm</td>
-                    <td>1</td>
-                    <td>Ja</td>
-                    <td>2014-04-13</td>
-                    <td><button id="update" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove" name="remove" class="btn btn-danger">Ta bort</button></td>
-                  </tr>
                 </tbody>
             </table>
         </div>
@@ -178,15 +170,20 @@
               <label class="control-label" for="area">Område</label>  
               <input id="modal-area" name="area" type="text" placeholder="" class="form-control input-md">
 
-              <label class="control-label" for="freeFrom">Inflytt</label>  
-              <input id="modal-freeFrom" name="freeFrom" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="free-from">Inflytt</label>  
+              <input id="modal-free-from" name="free-from" type="text" placeholder="" class="form-control input-md">
 
               <label class="control-label" for="summary">Beskrivning</label>
               <textarea id="modal-summary" class="form-control"  name="summary" style="height: 155px; resize: none;"></textarea>
 
               <input id="modal-id" name="id" type="hidden" placeholder="" class="form-control input-md">
+              <input id="modal-image-name" name="image-name" type="hidden" placeholder="" class="form-control input-md">
 
             </form>
+
+            <div id="fileuploader" >Ladda upp bild</div>
+            <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
+            <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
 
           </div>
           <div class="modal-footer">
@@ -201,8 +198,12 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/global.js"></script>
+
+    <script src="../js/jquery-upload-file.js"></script>
     <script>
       loadNavbar('admin-navbar.json');
+
+      $('.alert').hide();
 
       $('form').on('submit', function(event){
 
@@ -215,8 +216,6 @@
         return false;
 
       });
-
-
 
       $('#submit-update-form').on('click', function(event){
         $('#update-form').submit();
@@ -248,13 +247,37 @@
           $('#modal-elevator').val(data[index].elevator);
           $('#modal-city').val(data[index].city);
           $('#modal-area').val(data[index].area);
-          $('#modal-freeFrom').val(data[index].freeFrom);
+          $('#modal-free-from').val(data[index].freeFrom);
           $('#modal-summary').val(data[index].summary);
           $('#modal-id').val(data[index].id);
+          $('#modal-image-name').val(data[index].imageName);
         });
 
         $('[id^=remove-]').on('click', function(event){
           $.post('../api/apartments.php','id=' + event.target.id.split('-')[1], function(data, status) {
+          });
+        });
+
+
+        $(document).ready(function() {
+          $("#fileuploader").uploadFile({
+            url:"../api/images.php",
+            fileName:"apartment-image",
+            dragDrop: false,
+            showDone: false,
+            showStatusAfterSuccess: false,
+            showError: false,
+            onSubmit: function(files) {
+              $('.alert').hide();
+            },
+            onSuccess: function(files,data,xhr){
+              $('.alert-info').show();
+              $('#modal-image-name').val(data[0]);
+              $('#update-form').submit();
+            },
+            onError: function(files,status,errMsg) {
+              $('.alert-error').show();
+            }
           });
         });
       });

@@ -12,8 +12,9 @@
 		|| $_POST['elevator']
 		|| $_POST['city'] 
 		|| $_POST['area'] 
-		|| $_POST['freeFrom'] 
-		|| $_POST['summary'])) {
+		|| $_POST['free-from'] 
+		|| $_POST['summary']
+		|| $_POST['image-name'])) {
 		remove_apartment($_POST['id']);
 
 	} else if($_POST['address'] 
@@ -24,8 +25,9 @@
 		|| $_POST['elevator']
 		|| $_POST['city'] 
 		|| $_POST['area'] 
-		|| $_POST['freeFrom'] 
-		|| $_POST['summary']) {
+		|| $_POST['free-from'] 
+		|| $_POST['summary']
+		|| $_POST['image-name']) {
 		$apartment = new Apartment();
 		$apartment->address = $_POST['address']; 
 		$apartment->rent = $_POST['rent']; 
@@ -35,15 +37,14 @@
 		$apartment->elevator = $_POST['elevator']; 
 		$apartment->city = $_POST['city']; 
 		$apartment->area = $_POST['area']; 
-		$apartment->freeFrom = $_POST['freeFrom']; 
-		$apartment->summary = $_POST['summary']; 
+		$apartment->freeFrom = $_POST['free-from']; 
+		$apartment->summary = $_POST['summary'];
+		$apartment->imageName = $_POST['image-name'];
 		
 		if($_POST['id']) {
-			echo "UPDATE";
 			$apartment->id = $_POST['id']; 
 			update_apartment($apartment);
 		} else {
-			echo "STORE";
 			store_apartment($apartment);
 		}
 		echo "OK";
