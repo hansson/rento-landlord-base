@@ -94,9 +94,17 @@
           </div>
 
           <div class="col-md-12">
+            <div id="fileuploader" >Ladda upp bild</div>
+          </div>
+
+          <div class="col-md-12"  style="margin-top: 5px">
             <button id="save" name="save" class="btn btn-success">Spara</button>
+            <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
+            <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
             <hr>
           </div>
+
+          <input id="image-name" name="image-name" type="hidden" placeholder="" class="form-control input-md">
 
         </form>
 
@@ -181,7 +189,7 @@
 
             </form>
 
-            <div id="fileuploader" >Ladda upp bild</div>
+            <div id="modal-fileuploader" >Ladda upp bild</div>
             <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
             <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
 
@@ -208,6 +216,8 @@
       $('form').on('submit', function(event){
 
         var link = $(this).attr('action');
+
+        $('.alert').hide();
 
         $.post(link,$(this).serialize(),function(data, status) {
           $("#updateModal").modal('hide');
@@ -260,7 +270,7 @@
 
 
         $(document).ready(function() {
-          $("#fileuploader").uploadFile({
+          $("#modal-fileuploader").uploadFile({
             url:"../api/images.php",
             fileName:"apartment-image",
             dragDrop: false,
@@ -279,6 +289,26 @@
               $('.alert-error').show();
             }
           });
+
+          $("#fileuploader").uploadFile({
+            url:"../api/images.php",
+            fileName:"apartment-image",
+            dragDrop: false,
+            showDone: false,
+            showStatusAfterSuccess: false,
+            showError: false,
+            onSubmit: function(files) {
+              $('.alert').hide();
+            },
+            onSuccess: function(files,data,xhr){
+              $('.alert-info').show();
+              $('#image-name').val(data[0]);
+            },
+            onError: function(files,status,errMsg) {
+              $('.alert-error').show();
+            }
+          });
+
         });
       });
     </script>
