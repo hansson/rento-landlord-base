@@ -16,7 +16,7 @@
 		|| $_POST['summary']
 		|| $_POST['image-name'])) {
 		remove_apartment($_POST['id']);
-
+		echo '{"status":"OK"}';
 	} else if($_POST['address'] 
 		|| $_POST['rent'] 
 		|| $_POST['size'] 
@@ -37,7 +37,7 @@
 		$apartment->elevator = $_POST['elevator']; 
 		$apartment->city = $_POST['city']; 
 		$apartment->area = $_POST['area']; 
-		$apartment->freeFrom = $_POST['free-from']; 
+		$apartment->freeFrom = $_POST['free-from'];  
 		$apartment->summary = $_POST['summary'];
 		$apartment->imageName = $_POST['image-name'];
 		
@@ -47,7 +47,7 @@
 		} else {
 			store_apartment($apartment);
 		}
-		echo "OK";
+		echo '{"status":"OK"}';
 	} else {
 		$apartments = fetch_apartments();
 

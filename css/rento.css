@@ -40,3 +40,10 @@ thead td {
 	margin-top: 5px;
 }
 
+.ajax-file-upload {
+	width: 100%;
+	text-align: center;
+	vertical-align: center;
+	height: 35px;
+}
+

@@ -81,11 +81,14 @@
             <label class="control-label" for="area">Område</label>  
             <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
 
-            <label class="control-label" for="freeFrom">Inflytt</label>  
-            <input id="freeFrom" name="freeFrom" type="text" placeholder="" class="form-control input-md">
+            <label class="control-label" for="free-from">Ledig från</label>  
+            <input id="free-from" name="free-from" type="text" placeholder="" class="form-control input-md">
 
             <label class="control-label" for="summary">Beskrivning</label>
-            <textarea class="form-control" id="summary" name="summary" style="height: 155px; resize: none;"></textarea>
+            <textarea class="form-control" id="summary" name="summary" style="height: 111px; resize: none;"></textarea>
+
+            <div id="fileuploader">Ladda upp bild</div>
+            <input id="image-name" name="image-name" type="hidden" placeholder="" class="form-control input-md">
 
           </div>
 
@@ -93,18 +96,14 @@
             <p style="margin-top: 22px">Fält kan läggas till eller tas bort beroende på just ert behov.</p>
           </div>
 
-          <div class="col-md-12">
-            <div id="fileuploader" >Ladda upp bild</div>
-          </div>
-
           <div class="col-md-12"  style="margin-top: 5px">
-            <button id="save" name="save" class="btn btn-success">Spara</button>
             <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
             <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
+            <button id="save" name="save" class="btn btn-success">Spara</button>
             <hr>
           </div>
 
-          <input id="image-name" name="image-name" type="hidden" placeholder="" class="form-control input-md">
+
 
         </form>
 
@@ -209,107 +208,127 @@
 
     <script src="../js/jquery-upload-file.js"></script>
     <script>
+      function getApartments() {
+        $.get('../api/apartments.php', function(data) {
+          var html = '';
+          for (var i = data.length - 1; i >= 0; i--) {
+            html += '<tr>';
+            html += '<td>' + data[i].address +'</td>';
+            html += '<td>' + data[i].rent +'</td>';
+            html += '<td>' + data[i].size +'</td>';
+            html += '<td>' + data[i].rooms +'</td>';
+            html += '<td>' + data[i].elevator +'</td>';
+            html += '<td>' + data[i].freeFrom +'</td>';
+            html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove-' + data[i].id +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
+            html += '</tr>';
+          };
+
+          $('#apartment-table-body').html(html);
+
+          $('[id^=update-]').on('click', function(event){
+            var index = event.target.id.split('-')[1];
+            $('#modal-address').val(data[index].address);
+            $('#modal-rent').val(data[index].rent);
+            $('#modal-size').val(data[index].size);
+            $('#modal-rooms').val(data[index].rooms);
+            $('#modal-floor').val(data[index].floor);
+            $('#modal-elevator').val(data[index].elevator);
+            $('#modal-city').val(data[index].city);
+            $('#modal-area').val(data[index].area);
+            $('#modal-free-from').val(data[index].freeFrom);
+            $('#modal-summary').val(data[index].summary);
+            $('#modal-id').val(data[index].id);
+            $('#modal-image-name').val(data[index].imageName);
+          });
+
+          $('[id^=remove-]').on('click', function(event){
+            $.post('../api/apartments.php','id=' + event.target.id.split('-')[1], function(data, status) {
+              getApartments();
+            });
+          });
+
+        });
+      }
+
+      function resetForm() {
+        $('#address').val("");
+        $('#rent').val("");
+        $('#size').val("");
+        $('#rooms').val("");
+        $('#floor').val("");
+        $('#elevator').val("");
+        $('#city').val("");
+        $('#area').val("");
+        $('#free-from').val("");
+        $('#summary').val("");
+      }
+
       loadNavbar('admin-navbar.json');
+
+      getApartments();
 
       $('.alert').hide();
 
-      $('form').on('submit', function(event){
-
-        var link = $(this).attr('action');
-
-        $('.alert').hide();
-
-        $.post(link,$(this).serialize(),function(data, status) {
-          $("#updateModal").modal('hide');
+      $(document).ready(function() {
+        $("#modal-fileuploader").uploadFile({
+          url:"../api/images.php",
+          fileName:"apartment-image",
+          dragDrop: false,
+          showDone: false,
+          showStatusAfterSuccess: false,
+          showError: false,
+          onSubmit: function(files) {
+            $('.alert').hide();
+          },
+          onSuccess: function(files,data,xhr){
+            $('.alert-info').show();
+            $('#modal-image-name').val(data[0]);
+            $('#update-form').submit();
+          },
+          onError: function(files,status,errMsg) {
+            $('.alert-error').show();
+          }
         });
 
-        return false;
-
-      });
-
-      $('#submit-update-form').on('click', function(event){
-        $('#update-form').submit();
-      })
-
-      $.get('../api/apartments.php', function(data) {
-        var html = '';
-        for (var i = data.length - 1; i >= 0; i--) {
-          html += '<tr>';
-          html += '<td>' + data[i].address +'</td>';
-          html += '<td>' + data[i].rent +'</td>';
-          html += '<td>' + data[i].size +'</td>';
-          html += '<td>' + data[i].rooms +'</td>';
-          html += '<td>' + data[i].elevator +'</td>';
-          html += '<td>' + data[i].freeFrom +'</td>';
-          html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
-          html += '</tr>'
-        };
-
-        $('#apartment-table-body').html(html);
-
-        $('[id^=update-]').on('click', function(event){
-          var index = event.target.id.split('-')[1];
-          $('#modal-address').val(data[index].address);
-          $('#modal-rent').val(data[index].rent);
-          $('#modal-size').val(data[index].size);
-          $('#modal-rooms').val(data[index].rooms);
-          $('#modal-floor').val(data[index].floor);
-          $('#modal-elevator').val(data[index].elevator);
-          $('#modal-city').val(data[index].city);
-          $('#modal-area').val(data[index].area);
-          $('#modal-free-from').val(data[index].freeFrom);
-          $('#modal-summary').val(data[index].summary);
-          $('#modal-id').val(data[index].id);
-          $('#modal-image-name').val(data[index].imageName);
+        $("#fileuploader").uploadFile({
+          url:"../api/images.php",
+          fileName:"apartment-image",
+          dragDrop: false,
+          showDone: false,
+          showStatusAfterSuccess: false,
+          showError: false,
+          onSubmit: function(files) {
+            $('.alert').hide();
+          },
+          onSuccess: function(files,data,xhr){
+            $('.alert-info').show();
+            $('#image-name').val(data[0]);
+          },
+          onError: function(files,status,errMsg) {
+            $('.alert-error').show();
+          }
         });
 
-        $('[id^=remove-]').on('click', function(event){
-          $.post('../api/apartments.php','id=' + event.target.id.split('-')[1], function(data, status) {
-          });
+        $('#submit-update-form').on('click', function(event){
+          $('#update-form').submit();
         });
 
+        $('form').on('submit', function(event){
 
-        $(document).ready(function() {
-          $("#modal-fileuploader").uploadFile({
-            url:"../api/images.php",
-            fileName:"apartment-image",
-            dragDrop: false,
-            showDone: false,
-            showStatusAfterSuccess: false,
-            showError: false,
-            onSubmit: function(files) {
-              $('.alert').hide();
-            },
-            onSuccess: function(files,data,xhr){
-              $('.alert-info').show();
-              $('#modal-image-name').val(data[0]);
-              $('#update-form').submit();
-            },
-            onError: function(files,status,errMsg) {
-              $('.alert-error').show();
-            }
+          var link = $(this).attr('action');
+
+          $('.alert').hide();
+
+          $.post(link,$(this).serialize(),function(data, status) {
+            $("#updateModal").modal('hide');
+            resetForm();
+            getApartments();
           });
 
-          $("#fileuploader").uploadFile({
-            url:"../api/images.php",
-            fileName:"apartment-image",
-            dragDrop: false,
-            showDone: false,
-            showStatusAfterSuccess: false,
-            showError: false,
-            onSubmit: function(files) {
-              $('.alert').hide();
-            },
-            onSuccess: function(files,data,xhr){
-              $('.alert-info').show();
-              $('#image-name').val(data[0]);
-            },
-            onError: function(files,status,errMsg) {
-              $('.alert-error').show();
-            }
-          });
+          return false;
 
         });
+
       });
     </script>
 
