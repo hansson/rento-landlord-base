@@ -14,7 +14,8 @@
 		|| $_POST['area'] 
 		|| $_POST['free-from'] 
 		|| $_POST['summary']
-		|| $_POST['image-name'])) {
+		|| $_POST['image-name']
+		|| $_POST['object'])) {
 		remove_apartment($_POST['id']);
 		echo '{"status":"OK"}';
 	} else if($_POST['address'] 
@@ -27,7 +28,8 @@
 		|| $_POST['area'] 
 		|| $_POST['free-from'] 
 		|| $_POST['summary']
-		|| $_POST['image-name']) {
+		|| $_POST['image-name']
+		|| $_POST['object']) {
 		$apartment = new Apartment();
 		$apartment->address = $_POST['address']; 
 		$apartment->rent = $_POST['rent']; 
@@ -40,6 +42,7 @@
 		$apartment->freeFrom = $_POST['free-from'];  
 		$apartment->summary = $_POST['summary'];
 		$apartment->imageName = $_POST['image-name'];
+		$apartment->object = $_POST['object'];
 		
 		if($_POST['id']) {
 			$apartment->id = $_POST['id']; 

@@ -49,9 +49,34 @@
 
           <div class="col-md-3">
 
+            <label class="control-label" for="object">Objekt</label>  
+            <input id="object" name="object" type="text" placeholder="" class="form-control input-md">
+
             <label class="control-label" for="address">Adress</label>  
             <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
 
+            <label class="control-label" for="city">Ort</label>  
+            <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="area">Område</label>  
+            <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="floor">Våning</label>  
+            <input id="floor" name="floor" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="elevator">Hiss</label>
+            <select id="elevator" name="elevator" class="form-control">
+              <option value="Ja">Ja</option>
+              <option value="Nej">Nej</option>
+            </select>
+
+            <label class="control-label" for="free-from">Ledig från</label>  
+            <input id="free-from" name="free-from" type="text" placeholder="" class="form-control input-md">
+
+            <label class="control-label" for="save"></label>
+          </div>
+
+          <div class="col-md-3">
             <label class="control-label" for="rent">Hyra</label>  
             <input id="rent" name="rent" type="text" placeholder="" class="form-control input-md">           
          
@@ -61,31 +86,8 @@
             <label class="control-label" for="rooms">Rum</label>  
             <input id="rooms" name="rooms" type="text" placeholder="" class="form-control input-md">
 
-            <label class="control-label" for="floor">Våning</label>  
-            <input id="floor" name="floor" type="text" placeholder="" class="form-control input-md">
-              
-            <label class="control-label" for="elevator">Hiss</label>
-            <select id="elevator" name="elevator" class="form-control">
-              <option value="Ja">Ja</option>
-              <option value="Nej">Nej</option>
-            </select>
-
-            <label class="control-label" for="save"></label>
-          </div>
-
-          <div class="col-md-3">
-
-            <label class="control-label" for="city">Ort</label>  
-            <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="area">Område</label>  
-            <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="free-from">Ledig från</label>  
-            <input id="free-from" name="free-from" type="text" placeholder="" class="form-control input-md">
-
             <label class="control-label" for="summary">Beskrivning</label>
-            <textarea class="form-control" id="summary" name="summary" style="height: 111px; resize: none;"></textarea>
+            <textarea class="form-control" id="summary" name="summary" style="height: 171px; resize: none;"></textarea>
 
             <div id="fileuploader">Ladda upp bild</div>
             <input id="image-name" name="image-name" type="hidden" placeholder="" class="form-control input-md">
@@ -112,11 +114,11 @@
           <table class="table table-striped">
                 <thead>
                   <tr>
+                    <td>Objekt</td>
                     <td>Adress</td>
                     <td>Hyra</td>
                     <td>Storlek</td>
                     <td>Rum</td>
-                    <td>Hiss</td>
                     <td>Ledig från</td>
                     <td></td>
                   </tr>
@@ -148,19 +150,19 @@
           </div>
           <div class="modal-body">
 
-            <form id="update-form" class="form-horizontal" action="../api/apartments.php" method="post">
+            <form id="form-update" class="form-horizontal" action="../api/apartments.php" method="post">
+
+              <label class="control-label" for="object">Objekt</label>  
+              <input id="modal-object" name="object" type="text" placeholder="" class="form-control input-md">
 
               <label class="control-label" for="address">Adress</label>  
               <input id="modal-address" name="address" type="text" placeholder="" class="form-control input-md" required>
 
-              <label class="control-label" for="rent">Hyra</label>  
-              <input id="modal-rent" name="rent" type="text" placeholder="" class="form-control input-md">           
-           
-              <label class="control-label" for="size">Storlek</label>  
-              <input id="modal-size" name="size" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="city">Ort</label>  
+              <input id="modal-city" name="city" type="text" placeholder="" class="form-control input-md">
 
-              <label class="control-label" for="rooms">Rum</label>  
-              <input id="modal-rooms" name="rooms" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="area">Område</label>  
+              <input id="modal-area" name="area" type="text" placeholder="" class="form-control input-md">
 
               <label class="control-label" for="floor">Våning</label>  
               <input id="modal-floor" name="floor" type="text" placeholder="" class="form-control input-md">
@@ -171,15 +173,18 @@
                 <option value="Nej">Nej</option>
               </select>
 
-              <label class="control-label" for="city">Ort</label>  
-              <input id="modal-city" name="city" type="text" placeholder="" class="form-control input-md">
-
-              <label class="control-label" for="area">Område</label>  
-              <input id="modal-area" name="area" type="text" placeholder="" class="form-control input-md">
-
               <label class="control-label" for="free-from">Inflytt</label>  
               <input id="modal-free-from" name="free-from" type="text" placeholder="" class="form-control input-md">
 
+              <label class="control-label" for="rent">Hyra</label>  
+              <input id="modal-rent" name="rent" type="text" placeholder="" class="form-control input-md">           
+           
+              <label class="control-label" for="size">Storlek</label>  
+              <input id="modal-size" name="size" type="text" placeholder="" class="form-control input-md">
+
+              <label class="control-label" for="rooms">Rum</label>  
+              <input id="modal-rooms" name="rooms" type="text" placeholder="" class="form-control input-md">
+              
               <label class="control-label" for="summary">Beskrivning</label>
               <textarea id="modal-summary" class="form-control"  name="summary" style="height: 155px; resize: none;"></textarea>
 
@@ -213,13 +218,13 @@
           var html = '';
           for (var i = data.length - 1; i >= 0; i--) {
             html += '<tr>';
+            html += '<td>' + data[i].object +'</td>';
             html += '<td>' + data[i].address +'</td>';
             html += '<td>' + data[i].rent +'</td>';
             html += '<td>' + data[i].size +'</td>';
             html += '<td>' + data[i].rooms +'</td>';
-            html += '<td>' + data[i].elevator +'</td>';
             html += '<td>' + data[i].freeFrom +'</td>';
-            html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove-' + data[i].id +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
+            html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#updateModal">Ändra</button> <button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
             html += '</tr>';
           };
 
@@ -227,6 +232,7 @@
 
           $('[id^=update-]').on('click', function(event){
             var index = event.target.id.split('-')[1];
+            $('#modal-object').val(data[index].object);
             $('#modal-address').val(data[index].address);
             $('#modal-rent').val(data[index].rent);
             $('#modal-size').val(data[index].size);
@@ -242,7 +248,8 @@
           });
 
           $('[id^=remove-]').on('click', function(event){
-            $.post('../api/apartments.php','id=' + event.target.id.split('-')[1], function(data, status) {
+            var index = event.target.id.split('-')[1]
+            $.post('../api/apartments.php','id=' + data[index].id, function(data, status) {
               getApartments();
             });
           });
@@ -251,6 +258,7 @@
       }
 
       function resetForm() {
+        $('#object').val("");
         $('#address').val("");
         $('#rent').val("");
         $('#size').val("");

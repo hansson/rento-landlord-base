@@ -12,6 +12,7 @@
 
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/rento.css" rel="stylesheet">
+    <link href="../css/jquery-upload-file.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -43,24 +44,24 @@
     <div class="container">
 
       <div class="row">
-          <div class="col-md-4 green info-box">
-              <h2>Vad?</h2>
-              <p>Rento.nu har som mål att..</p>
-              <p>Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet, när en okänd boksättare tog att antal bokstäver och blandade dem för att göra ett provexemplar av en bok. Lorem ipsum har inte bara överlevt fem århundraden, utan även övergången till elektronisk typografi utan större förändringar. Det blev allmänt känt på 1960-talet i samband med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum, och senare med mjukvaror som Aldus PageMaker.</p>
-          </div>
-          <div class="col-md-4 orange info-box">
-              <h2>Varför?</h2>
-              <p>Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet, när en okänd boksättare tog att antal bokstäver och blandade dem för att göra ett provexemplar av en bok.känt på 1960-talet i samband med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum, och senare med mjukvaror som Aldus PageMaker.</p>
-              <ul>
-                <li>Mobilanpassad</li>
-                <li>Användarvänlig</li>
-                <li>En kort text</li>
-              </ul>
-          </div>
-          <div class="col-md-4 blue info-box">
-              <h2>Hur?</h2>
-              <p>Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet, när en okänd boksättare tog att antal bokstäver och blandade dem för att göra ett provexemplar av en bok. Lorem ipsum har inte bara överlevt fem århundraden, utan även övergången till elektronisk typografi utan större förändringar. Det blev allmänt känt på 1960-talet i samband med lanseringen av Letraset-ark med avsnitt av Lorem Ipsum, och senare med mjukvaror som Aldus PageMaker.</p>
-          </div>
+
+        <div class="row">
+          <div class="col-md-12">
+          <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <td>Objekt</td>
+                    <td>Adress</td>
+                    <td>Intressenter</td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody id="interest-table-body">
+                </tbody>
+            </table>
+        </div>
+      </div>
+
       </div>
 
 
@@ -72,11 +73,60 @@
       </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="interestModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Intressenter</h4>
+          </div>
+          <div class="modal-body">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/global.js"></script>
+
+    <script src="../js/jquery-upload-file.js"></script>
     <script>
+      function getInterest() {
+        $.get('../api/interest.php', function(data) {
+          var html = '';
+          for (var i = data.length - 1; i >= 0; i--) {
+            html += '<tr>';
+            html += '<td>' + data[i].object +'</td>';
+            html += '<td>' + data[i].address +'</td>';
+            html += '<td>' + data[i].interestCount +'</td>';
+            html += '<td><button id="show-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#interestModal">Visa intressenter</button></td>';
+            html += '</tr>';
+          };
+
+          $('#interest-table-body').html(html);
+
+          $('[id^=show-]').on('click', function(event){
+            var index = event.target.id.split('-')[1];
+            
+          });
+
+        });
+      }
+
       loadNavbar('admin-navbar.json');
+
+      getInterest();
+
+      $(document).ready(function() {
+
+      });
     </script>
 
   </body>

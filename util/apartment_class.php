@@ -11,6 +11,7 @@ class Apartment {
     public $freeFrom = '';
     public $summary = '';
     public $imageName = '';
+    public $object = '';
     public $id = '';
 
     public function get_json() {

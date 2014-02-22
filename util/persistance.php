@@ -1,5 +1,6 @@
 <?php
 require 'apartment_class.php';
+require 'interest_class.php';
 
 function get_db_connection() {
 	try { 
@@ -20,28 +21,29 @@ function get_db_connection() {
 
 function store_apartment($apartment) {
 	$DBH = get_db_connection();
-	$STH = $DBH->prepare('INSERT INTO apartments (id, address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName) value (:id, :address, :rent, :size, :rooms, :floor, :elevator, :city, :area, :freeFrom, :summary, :imageName)');  
+	$STH = $DBH->prepare('INSERT INTO apartments (id, address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, object) value (:id, :address, :rent, :size, :rooms, :floor, :elevator, :city, :area, :freeFrom, :summary, :imageName, :object)');  
 	$STH->execute((array)$apartment);
 }
 
 function fetch_apartments() {
 	$DBH = get_db_connection();
-	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, id from apartments');  
+	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, object, id from apartments');  
 	$STH->setFetchMode(PDO::FETCH_OBJ); 
 	$apartments = array();
 	while($row = $STH->fetch()) {  
 		$apartment = new Apartment();
-		$apartment->address = $row->address;
-		$apartment->rent = $row->rent;
-		$apartment->size = $row->size;
-		$apartment->rooms = $row->rooms;
-		$apartment->floor = $row->floor;
-		$apartment->elevator = $row->elevator;
-		$apartment->city = $row->city;
-		$apartment->area = $row->area;
-		$apartment->freeFrom = $row->freeFrom;
-		$apartment->summary = $row->summary;
-		$apartment->imageName = $row->imageName;
+		$apartment->address = filter_var($row->address, FILTER_SANITIZE_STRING);
+		$apartment->rent = filter_var($row->rent, FILTER_SANITIZE_STRING);
+		$apartment->size = filter_var($row->size, FILTER_SANITIZE_STRING);
+		$apartment->rooms = filter_var($row->rooms, FILTER_SANITIZE_STRING);
+		$apartment->floor = filter_var($row->floor, FILTER_SANITIZE_STRING);
+		$apartment->elevator = filter_var($row->elevator, FILTER_SANITIZE_STRING);
+		$apartment->city = filter_var($row->city, FILTER_SANITIZE_STRING);
+		$apartment->area = filter_var($row->area, FILTER_SANITIZE_STRING);
+		$apartment->freeFrom = filter_var($row->freeFrom, FILTER_SANITIZE_STRING);
+		$apartment->summary = filter_var($row->summary, FILTER_SANITIZE_STRING);
+		$apartment->imageName = filter_var($row->imageName, FILTER_SANITIZE_STRING);
+		$apartment->object = filter_var($row->object, FILTER_SANITIZE_STRING);
 		$apartment->id = $row->id;
 		$apartments[] = $apartment;
 	} 
@@ -51,21 +53,22 @@ function fetch_apartments() {
 
 function fetch_apartment($id) {
 	$DBH = get_db_connection();
-	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, id from apartments WHERE id = :id');  
+	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, object, id from apartments WHERE id = :id');  
 	$STH->execute(array( 'id' => $id));
 	while($row = $STH->fetch(PDO::FETCH_OBJ)) {  
 		$apartment = new Apartment();
-		$apartment->address = $row->address;
-		$apartment->rent = $row->rent;
-		$apartment->size = $row->size;
-		$apartment->rooms = $row->rooms;
-		$apartment->floor = $row->floor;
-		$apartment->elevator = $row->elevator;
-		$apartment->city = $row->city;
-		$apartment->area = $row->area;
-		$apartment->freeFrom = $row->freeFrom;
-		$apartment->summary = $row->summary;
-		$apartment->imageName = $row->imageName;
+		$apartment->address = filter_var($row->address, FILTER_SANITIZE_STRING);
+		$apartment->rent = filter_var($row->rent, FILTER_SANITIZE_STRING);
+		$apartment->size = filter_var($row->size, FILTER_SANITIZE_STRING);
+		$apartment->rooms = filter_var($row->rooms, FILTER_SANITIZE_STRING);
+		$apartment->floor = filter_var($row->floor, FILTER_SANITIZE_STRING);
+		$apartment->elevator = filter_var($row->elevator, FILTER_SANITIZE_STRING);
+		$apartment->city = filter_var($row->city, FILTER_SANITIZE_STRING);
+		$apartment->area = filter_var($row->area, FILTER_SANITIZE_STRING);
+		$apartment->freeFrom = filter_var($row->freeFrom, FILTER_SANITIZE_STRING);
+		$apartment->summary = filter_var($row->summary, FILTER_SANITIZE_STRING);
+		$apartment->imageName = filter_var($row->imageName, FILTER_SANITIZE_STRING);
+		$apartment->object = filter_var($row->object, FILTER_SANITIZE_STRING);
 		$apartment->id = $row->id;
 		return $apartment;
 	} 
@@ -74,7 +77,7 @@ function fetch_apartment($id) {
 
 function update_apartment($apartment) {
 	$DBH = get_db_connection();
-	$STH = $DBH->prepare('UPDATE apartments SET address = :address, rent = :rent, size = :size, rooms = :rooms, floor = :floor, elevator = :elevator, city = :city, area = :area, freeFrom = :freeFrom, summary = :summary , imageName = :imageName WHERE id =:id');  
+	$STH = $DBH->prepare('UPDATE apartments SET address = :address, rent = :rent, size = :size, rooms = :rooms, floor = :floor, elevator = :elevator, city = :city, area = :area, freeFrom = :freeFrom, summary = :summary , imageName = :imageName , object = :object WHERE id =:id');  
 	$STH->execute((array)$apartment);
 }
 
@@ -82,6 +85,34 @@ function remove_apartment($id) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('DELETE from apartments WHERE id = :id');  
 	$STH->execute(array( 'id' => $id));
+}
+
+function fetch_interest($apartmentId) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('SELECT name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId, id from interest WHERE apartmentId = :id');  
+	$STH->execute(array( 'id' => $apartmentId));
+	$interests = array();
+	while($row = $STH->fetch(PDO::FETCH_OBJ)) {  
+		$interest = new Interest();
+		$interest->name = filter_var($row->name, FILTER_SANITIZE_STRING);
+		$interest->socialSecurity = filter_var($socialSecurity->rent, FILTER_SANITIZE_STRING);
+		$interest->address = filter_var($row->address, FILTER_SANITIZE_STRING);
+		$interest->postalNumber = filter_var($row->postalNumber, FILTER_SANITIZE_STRING);
+		$interest->city = filter_var($row->city, FILTER_SANITIZE_STRING);
+		$interest->phone = filter_var($row->phone, FILTER_SANITIZE_STRING);
+		$interest->email = filter_var($row->email, FILTER_SANITIZE_STRING);
+		$interest->company = filter_var($row->company, FILTER_SANITIZE_STRING);
+		$interest->trade = filter_var($row->trade, FILTER_SANITIZE_STRING);
+		$interest->yearlyIncome = filter_var($row->yearlyIncome, FILTER_SANITIZE_STRING);
+		$interest->smoker = filter_var($row->smoker, FILTER_SANITIZE_STRING);
+		$interest->animals = filter_var($row->animals, FILTER_SANITIZE_STRING);
+		$interest->singleApplicant = filter_var($row->singleApplicant, FILTER_SANITIZE_STRING);
+		$interest->apartmentId = filter_var($row->apartmentId, FILTER_SANITIZE_STRING);
+		$interest->id = $row->id;
+		$interests[] = $interest;
+	} 
+
+	return $interests;
 }
 
 

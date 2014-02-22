@@ -10,14 +10,14 @@ class Interest {
     public $email = '';
     public $company = '';
     public $trade = '';
+    public $yearlyIncome = '';
 
     //boolean
     public $smoker = '';
     public $animals = '';
+    public $singleApplicant = '';
 
     //general
-    public $yearlyIncome = '';
-    public $singleApplicant = '';
     public $apartmentId = '';
     public $id = '';
 
