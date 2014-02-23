@@ -82,7 +82,7 @@
             <h4 class="modal-title" id="myModalLabel">Intressenter</h4>
           </div>
           <div class="modal-body">
-
+            <img id="loading-image" src="../img/ajax-loader.gif" class="center-image"  />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
@@ -113,8 +113,11 @@
           $('#interest-table-body').html(html);
 
           $('[id^=show-]').on('click', function(event){
+            $('#loading-image').css("display", "block");
             var index = event.target.id.split('-')[1];
-            
+            $.get('../api/interest.php?apartment=' + data[index].apartmentId, function(data) {
+              $('#loading-image').css("display", "none");
+            });
           });
 
         });
