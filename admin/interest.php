@@ -47,7 +47,7 @@
 
         <div class="row">
           <div class="col-md-12">
-          <table class="table table-striped">
+            <table class="table table-striped">
                 <thead>
                   <tr>
                     <td>Objekt</td>
@@ -75,7 +75,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="interestModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
+      <div class="modal-dialog" style="width: 1100px">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -83,6 +83,20 @@
           </div>
           <div class="modal-body">
             <img id="loading-image" src="../img/ajax-loader.gif" class="center-image"  />
+            <table class="table no-border">
+                <thead>
+                  <tr>
+                    <td>Namn och Personnummer</td>
+                    <td>Adress</td>
+                    <td>Kontakt</td>
+                    <td>Arbete</td>
+                    <td>Årsinkomst</td>
+                    <td>Övrigt</td>
+                  </tr>
+                </thead>
+                <tbody id="apartment-interest-table-body">
+                </tbody>
+            </table>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
@@ -115,8 +129,44 @@
           $('[id^=show-]').on('click', function(event){
             $('#loading-image').css("display", "block");
             var index = event.target.id.split('-')[1];
-            $.get('../api/interest.php?apartment=' + data[index].apartmentId, function(data) {
+            $.get('../api/interest.php?apartment=' + data[index].apartmentId, function(apartmentData) {
               $('#loading-image').css("display", "none");
+              html = '';
+              for (var i = apartmentData.length - 1; i >= 0; i--) {
+                html += '<tr>';
+                html += '<td>' + apartmentData[i].name +'</td>';
+                html += '<td>' + apartmentData[i].address +'</td>';
+                html += '<td>' + apartmentData[i].phone +'</td>';
+                html += '<td>' + apartmentData[i].company +'</td>';
+                html += '<td>' + apartmentData[i].yearlyIncome +'</td>';
+                html += '<td>';
+                if(apartmentData[i].singleApplicant === 'Ja') {
+                  html += '<img src="../icons/user.png" alt="Ensamsökande"/>'
+                } else {
+                  html += '<img src="../icons/group.png" alt="Har medsökande"/>'
+                }
+
+                if(apartmentData[i].smoker === 'Ja') {
+                  html += '<img src="../icons/cigarette.png" alt="Ensamsökande"/>'  
+                }
+                if(apartmentData[i].animals === 'Ja') {
+                  html += '<img src="../icons/dog.png" alt="Ensamsökande"/>'
+                }
+
+                html += '</td>';
+                html += '</tr>';
+                html += '<tr>';
+                html += '<td>' + apartmentData[i].socialSecurity +'</td>';
+                html += '<td>' + apartmentData[i].postalNumber + ' ' + apartmentData[i].city + '</td>';
+                html += '<td>' + apartmentData[i].email +'</td>';
+                html += '<td>' + apartmentData[i].trade +'</td>';
+                html += '<td colspan="2" class="btn-td"><button id="show-' + i +'" name="update" class="btn btn-danger" data-toggle="modal" data-target="#interestModal">Ta bort</button></td>';
+                html += '</tr>';
+                html += '<tr>';
+                html += '<td><hr/></td>';
+                html += '</tr>';
+              };
+              $('#apartment-interest-table-body').html(html);    
             });
           });
 

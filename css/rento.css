@@ -53,3 +53,11 @@ thead td {
     margin-right: auto;
 }
 
+.no-border th, .no-border td { 
+     border-top: none !important; 
+ }
+
+ .btn-td {
+ 	text-align: right;
+ }
+
