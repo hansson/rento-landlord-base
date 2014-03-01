@@ -45,98 +45,19 @@
       <div class="row">
           <div class="col-md-12">
               <h2>Lediga lägenheter</h2>
-              <table class="table table-striped">
+              <table class="table table-striped table-hover">
                 <thead>
                   <tr>
                     <td>Adress</td>
                     <td>Hyra</td>
                     <td>Storlek</td>
                     <td>Rum</td>
+                    <td>Våning</td>
                     <td>Hiss</td>
                     <td>Ledig från</td>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Storgatan 1</td>
-                    <td>4000 kr</td>
-                    <td>40 kvm</td>
-                    <td>1</td>
-                    <td>Ja</td>
-                    <td>2014-04-13</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 2</td>
-                    <td>5000 kr</td>
-                    <td>50 kvm</td>
-                    <td>2</td>
-                    <td>Ja</td>
-                    <td>2014-04-22</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 3</td>
-                    <td>6000 kr</td>
-                    <td>60 kvm</td>
-                    <td>3</td>
-                    <td>Nej</td>
-                    <td>2014-05-13</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 1</td>
-                    <td>4000 kr</td>
-                    <td>40 kvm</td>
-                    <td>1</td>
-                    <td>Ja</td>
-                    <td>2014-04-13</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 2</td>
-                    <td>5000 kr</td>
-                    <td>50 kvm</td>
-                    <td>2</td>
-                    <td>Ja</td>
-                    <td>2014-04-22</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 3</td>
-                    <td>6000 kr</td>
-                    <td>60 kvm</td>
-                    <td>3</td>
-                    <td>Nej</td>
-                    <td>2014-05-13</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 1</td>
-                    <td>4000 kr</td>
-                    <td>40 kvm</td>
-                    <td>1</td>
-                    <td>Ja</td>
-                    <td>2014-04-13</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 2</td>
-                    <td>5000 kr</td>
-                    <td>50 kvm</td>
-                    <td>2</td>
-                    <td>Ja</td>
-                    <td>2014-04-22</td>
-                  </tr>
-
-                  <tr>
-                    <td>Storgatan 3</td>
-                    <td>6000 kr</td>
-                    <td>60 kvm</td>
-                    <td>3</td>
-                    <td>Nej</td>
-                    <td>2014-05-13</td>
-                  </tr>
+                <tbody id="apartments-table-body">
                 </tbody>
               </table>
           </div>
@@ -156,6 +77,25 @@
     <script src="js/global.js"></script>
     <script>
       loadNavbar('navbar.json');
+      $.get('api/apartments.php', function(data){
+        var html = '';
+        for (var i = data.length - 1; i >= 0; i--) {
+          html += '<tr data="' + data[i].id +'">';
+          html += '<td>' + data[i].address + '</td>';
+          html += '<td>' + data[i].rent + '</td>';
+          html += '<td>' + data[i].size + '</td>';
+          html += '<td>' + data[i].rooms + '</td>';
+          html += '<td>' + data[i].floor + '</td>';
+          html += '<td>' + data[i].elevator + '</td>';
+          html += '<td>' + data[i].freeFrom + '</td>';
+          html += '</tr>';
+        };
+        $('#apartments-table-body').html(html);
+
+        $('tr').on('click', function(event){
+          window.location.href = 'apartment.php?id=' + $(this).attr('data');
+        });
+      });
     </script>
     
   </body>

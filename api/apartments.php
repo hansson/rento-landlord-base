@@ -51,6 +51,8 @@
 			store_apartment($apartment);
 		}
 		echo '{"status":"OK"}';
+	} else if($_GET['id']) {
+		echo fetch_apartment($_GET['id'])->get_json();
 	} else {
 		$apartments = fetch_apartments();
 

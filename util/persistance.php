@@ -25,6 +25,12 @@ function store_apartment($apartment) {
 	$STH->execute((array)$apartment);
 }
 
+function store_interest() {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('INSERT INTO interest (id, name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId) value (:id, :name, :socialSecurity, :address, :postalNumber, :city, :phone, :email, :company, :trade, :yearlyIncome, :smoker, :animals, :singleApplicant, :apartmentId)');  
+	$STH->execute((array)$apartment);
+}
+
 function fetch_apartments() {
 	$DBH = get_db_connection();
 	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, object, id from apartments');  
@@ -53,7 +59,7 @@ function fetch_apartments() {
 
 function fetch_apartment($id) {
 	$DBH = get_db_connection();
-	$STH = $DBH->query('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, object, id from apartments WHERE id = :id');  
+	$STH = $DBH->prepare('SELECT address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, object, id from apartments WHERE id = :id');  
 	$STH->execute(array( 'id' => $id));
 	while($row = $STH->fetch(PDO::FETCH_OBJ)) {  
 		$apartment = new Apartment();
