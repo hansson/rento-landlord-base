@@ -99,7 +99,7 @@
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Stäng</button>
           </div>
 
         </div>
@@ -120,7 +120,7 @@
             html += '<td>' + data[i].object +'</td>';
             html += '<td>' + data[i].address +'</td>';
             html += '<td>' + data[i].interestCount +'</td>';
-            html += '<td><button id="show-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#interestModal">Visa intressenter</button></td>';
+            html += '<td><button id="show-' + i +'" name="show" class="btn btn-info" data-toggle="modal" data-target="#interestModal">Visa intressenter</button></td>';
             html += '</tr>';
           };
 
@@ -141,16 +141,16 @@
                 html += '<td>' + apartmentData[i].yearlyIncome +'</td>';
                 html += '<td>';
                 if(apartmentData[i].singleApplicant === 'Ja') {
-                  html += '<img src="../icons/user.png" alt="Ensamsökande"/>'
+                  html += '<img src="../icons/user.png" alt="Ensamsökande" title="Ensamsökande"/>'
                 } else {
-                  html += '<img src="../icons/group.png" alt="Har medsökande"/>'
+                  html += '<img src="../icons/group.png" alt="Har medsökande" title="Har medsökande"/>'
                 }
 
                 if(apartmentData[i].smoker === 'Ja') {
-                  html += '<img src="../icons/cigarette.png" alt="Ensamsökande"/>'  
+                  html += '<img src="../icons/cigarette.png" alt="Rökare" title="Rökare"/>'  
                 }
                 if(apartmentData[i].animals === 'Ja') {
-                  html += '<img src="../icons/dog.png" alt="Ensamsökande"/>'
+                  html += '<img src="../icons/dog.png" alt="Husdjur" title="Husdjur"/>'
                 }
 
                 html += '</td>';
@@ -160,13 +160,13 @@
                 html += '<td>' + apartmentData[i].postalNumber + ' ' + apartmentData[i].city + '</td>';
                 html += '<td>' + apartmentData[i].email +'</td>';
                 html += '<td>' + apartmentData[i].trade +'</td>';
-                html += '<td colspan="2" class="btn-td"><button id="show-' + i +'" name="update" class="btn btn-danger" data-toggle="modal" data-target="#interestModal">Ta bort</button></td>';
+                html += '<td colspan="2" class="btn-td"><button id="remove-' + i +'" name="remove" class="btn btn-danger" style="margin-right: 20px">Ta bort</button></td>';
                 html += '</tr>';
                 html += '<tr>';
-                html += '<td><hr/></td>';
+                html += '<td colspan="6"><hr/></td>';
                 html += '</tr>';
               };
-              $('#apartment-interest-table-body').html(html);    
+              $('#apartment-interest-table-body').html(html);
             });
           });
 

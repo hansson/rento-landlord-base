@@ -25,10 +25,10 @@ function store_apartment($apartment) {
 	$STH->execute((array)$apartment);
 }
 
-function store_interest() {
+function store_interest($interest) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('INSERT INTO interest (id, name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId) value (:id, :name, :socialSecurity, :address, :postalNumber, :city, :phone, :email, :company, :trade, :yearlyIncome, :smoker, :animals, :singleApplicant, :apartmentId)');  
-	$STH->execute((array)$apartment);
+	$STH->execute((array)$interest);
 }
 
 function fetch_apartments() {
@@ -101,7 +101,7 @@ function fetch_interest($apartmentId) {
 	while($row = $STH->fetch(PDO::FETCH_OBJ)) {  
 		$interest = new Interest();
 		$interest->name = filter_var($row->name, FILTER_SANITIZE_STRING);
-		$interest->socialSecurity = filter_var($socialSecurity->rent, FILTER_SANITIZE_STRING);
+		$interest->socialSecurity = filter_var($row->socialSecurity, FILTER_SANITIZE_STRING);
 		$interest->address = filter_var($row->address, FILTER_SANITIZE_STRING);
 		$interest->postalNumber = filter_var($row->postalNumber, FILTER_SANITIZE_STRING);
 		$interest->city = filter_var($row->city, FILTER_SANITIZE_STRING);

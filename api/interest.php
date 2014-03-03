@@ -12,15 +12,12 @@
 		&& $_POST['city']
 		&& $_POST['phone']
 		&& $_POST['email']
-		&& $_POST['company']
-		&& $_POST['trade']
 		&& $_POST['yearly-income']
 		&& $_POST['smoker']
 		&& $_POST['animals']
 		&& $_POST['single-applicant']) {
 		$interest = new Interest();
 		$interest->name = $_POST['name'];
-		$interest->socialSecurity = $_POST['social-security'];
 		$interest->address = $_POST['address'];
 		$interest->city = $_POST['city'];
 		$interest->postalNumber = $_POST['postal-number'];
@@ -33,8 +30,21 @@
 		$interest->animals = $_POST['animals'];
 		$interest->singleApplicant = $_POST['single-applicant'];
 		$interest->apartmentId = $_POST['apartment-id'];
-		store_interest($interest);
-		echo '{"status":"OK"}';
+
+		$subject = $_POST['social-security'];
+		$pattern = '/^([0-9]{6})-([0-9]{4})$/';
+		if(preg_match($pattern, $subject, $matches) == 1) {
+			$interest->socialSecurity = $_POST['social-security'];	
+			store_interest($interest);
+			echo '{"status":"OK"}';
+		} else {
+			http_response_code(400);
+			echo '{"status":"NOT_OK"}';
+		}
+		
+
+		
+		
 	} else if($_GET['apartment']) {
 		$interests = fetch_interest($_GET['apartment']);
 		$response = '[';

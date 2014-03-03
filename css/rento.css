@@ -61,3 +61,7 @@ thead td {
  	text-align: right;
  }
 
+ .has-error {
+ 	border: 1px solid #f00;
+ }
+

@@ -121,7 +121,7 @@
               <input id="name" name="name" type="text" placeholder="" class="form-control input-md">
 
               <label class="control-label" for="social-security">Personnummer</label>  
-              <input id="social-security" name="social-security" type="text" placeholder="" class="form-control input-md" required>
+              <input id="social-security" name="social-security" type="text" placeholder="ÅÅMMDD-XXXX" class="form-control input-md" required>
 
               <label class="control-label" for="address">Adress</label>  
               <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
@@ -159,8 +159,8 @@
                 <option value="Nej">Nej</option>
               </select>
 
-              <label class="control-label" for="singleApplicant">Har medsökande</label>
-              <select id="singleApplicant" name="singleApplicant" class="form-control">
+              <label class="control-label" for="single-applicant">Har medsökande</label>
+              <select id="single-applicant" name="single-applicant" class="form-control">
                 <option value="Nej">Ja</option>
                 <option value="Ja">Nej</option>
               </select>
@@ -171,7 +171,7 @@
 
           </div>
           <div class="modal-footer">
-            <button id="submit-update-form" type="button" class="btn btn-info" data-dismiss="modal">Skicka</button>
+            <button id="submit-update-form" type="button" class="btn btn-info">Skicka</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
           </div>
 
@@ -202,6 +202,53 @@
         $('#yearly-income').val("");
       }
 
+      function validateFields() {
+        var validateState = true;
+        if($('#name').val().trim() == "") {
+          validateState = false;
+          $('#name').addClass('has-error');
+        }
+
+        var pattern =/^([0-9]{6})-([0-9]{4})$/;
+        if($('#social-security').val().trim() == "" || !pattern.test($('#social-security').val())) {
+          validateState = false;
+          $('#social-security').addClass('has-error');
+          $('#social-security').val("");
+        }
+
+        if($('#address').val().trim() == "") {
+          validateState = false;
+          $('#address').addClass('has-error');
+        }
+
+        if($('#postal-number').val().trim() == "") {
+          validateState = false;
+          $('#postal-number').addClass('has-error');
+        }
+
+        if($('#city').val().trim() == "") {
+          validateState = false;
+          $('#city').addClass('has-error');
+        }
+
+        if($('#phone').val().trim() == "") {
+          validateState = false;
+          $('#phone').addClass('has-error');
+        }
+
+        if($('#email').val().trim() == "") {
+          validateState = false;
+          $('#email').addClass('has-error');
+        }
+
+        if($('#yearly-income').val().trim() == "") {
+          validateState = false;
+          $('#yearly-income').addClass('has-error');
+        }
+
+        return validateState;
+      }
+
       $('.alert').hide();
 
       loadNavbar('navbar.json');
@@ -225,14 +272,16 @@
       $('form').on('submit', function(event){
 
           var link = $(this).attr('action');
+          $('input').removeClass('has-error');
 
           $('.alert').hide();
-
-          $.post(link,$(this).serialize(), function(data, status) {
-            $("#interest-modal").modal('hide');
-            resetForm();
-            $('.alert').show();
-          });
+          if(validateFields()) {
+            $.post(link,$(this).serialize(), function(data, status) {
+              $("#interest-modal").modal('hide');
+              resetForm();
+              $('.alert').show();
+            });
+          }
 
           return false;
 
