@@ -27,9 +27,22 @@ CREATE TABLE `interest` (
   `trade` varchar(64) DEFAULT NULL,
   `smoker` varchar(3) DEFAULT NULL,
   `animals` varchar(3) DEFAULT NULL,
-  `yearlyIncome` varchar(10) DEFAULT NULL,
+  `yearlyIncome` varchar(16) DEFAULT NULL,
   `singleApplicant` varchar(3) DEFAULT NULL,
   `apartmentId` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `error_report` (
+  `name` varchar(64) DEFAULT NULL,
+  `socialSecurity` varchar(11) DEFAULT NULL,
+  `address` varchar(64) DEFAULT NULL,
+  `phone` varchar(16) DEFAULT NULL,
+  `email` varchar(64) DEFAULT NULL,
+  `apartmentNumber` varchar(16) DEFAULT NULL,
+  `masterKeyAllowed` varchar(3) DEFAULT NULL,
+  `summary` text,
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

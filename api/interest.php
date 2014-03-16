@@ -4,7 +4,21 @@
 
 	header('Content-Type: application/json');
 
-	if($_POST['apartment-id'] 
+	if($_POST['id'] && 
+		!($_POST['name']
+		|| $_POST['social-security']
+		|| $_POST['address']
+		|| $_POST['postal-number']
+		|| $_POST['city']
+		|| $_POST['phone']
+		|| $_POST['email']
+		|| $_POST['yearly-income']
+		|| $_POST['smoker']
+		|| $_POST['animals']
+		|| $_POST['single-applicant'])) {
+		remove_interest($_POST['id']);
+		echo '{"status":"OK"}';
+	} else if($_POST['apartment-id'] 
 		&& $_POST['name']
 		&& $_POST['social-security']
 		&& $_POST['address']
@@ -40,10 +54,7 @@
 		} else {
 			http_response_code(400);
 			echo '{"status":"NOT_OK"}';
-		}
-		
-
-		
+		}		
 		
 	} else if($_GET['apartment']) {
 		$interests = fetch_interest($_GET['apartment']);

@@ -11,6 +11,10 @@
     {
       "text": "Intresseanmälningar",
       "link": "interest.php"
+    },
+    {
+      "text": "Felanmälningar",
+      "link": "error_report.php"
     }
   ]
 }

@@ -1,6 +1,7 @@
 <?php
 require 'apartment_class.php';
 require 'interest_class.php';
+require 'error_report_class.php';
 
 function get_db_connection() {
 	try { 
@@ -23,12 +24,6 @@ function store_apartment($apartment) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('INSERT INTO apartments (id, address, rent, size, rooms, floor, elevator, city, area, freeFrom, summary, imageName, object) value (:id, :address, :rent, :size, :rooms, :floor, :elevator, :city, :area, :freeFrom, :summary, :imageName, :object)');  
 	$STH->execute((array)$apartment);
-}
-
-function store_interest($interest) {
-	$DBH = get_db_connection();
-	$STH = $DBH->prepare('INSERT INTO interest (id, name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId) value (:id, :name, :socialSecurity, :address, :postalNumber, :city, :phone, :email, :company, :trade, :yearlyIncome, :smoker, :animals, :singleApplicant, :apartmentId)');  
-	$STH->execute((array)$interest);
 }
 
 function fetch_apartments() {
@@ -93,6 +88,12 @@ function remove_apartment($id) {
 	$STH->execute(array( 'id' => $id));
 }
 
+function store_interest($interest) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('INSERT INTO interest (id, name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId) value (:id, :name, :socialSecurity, :address, :postalNumber, :city, :phone, :email, :company, :trade, :yearlyIncome, :smoker, :animals, :singleApplicant, :apartmentId)');  
+	$STH->execute((array)$interest);
+}
+
 function fetch_interest($apartmentId) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('SELECT name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId, id from interest WHERE apartmentId = :id');  
@@ -120,6 +121,47 @@ function fetch_interest($apartmentId) {
 
 	return $interests;
 }
+
+function remove_interest($id) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('DELETE from interest WHERE id = :id');  
+	$STH->execute(array( 'id' => $id));
+}
+
+function store_error_report($error_report) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('INSERT INTO error_report (id, name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId) value (:id, :name, :socialSecurity, :address, :postalNumber, :city, :phone, :email, :company, :trade, :yearlyIncome, :smoker, :animals, :singleApplicant, :apartmentId)');  
+	$STH->execute((array)$error_report);
+}
+
+function fetch_error_reports() {
+	$DBH = get_db_connection();
+	$STH = $DBH->query('SELECT name, socialSecurity, address, phone, email, apartmentNumber, masterKeyAllowed, summary, id from error_report');  
+	$STH->setFetchMode(PDO::FETCH_OBJ); 
+	$reports = array();
+	while($row = $STH->fetch()) {  
+		$error_report = new ErrorReport();
+		$error_report->name = filter_var($row->name, FILTER_SANITIZE_STRING);
+		$error_report->socialSecurity = filter_var($row->socialSecurity, FILTER_SANITIZE_STRING);
+		$error_report->address = filter_var($row->address, FILTER_SANITIZE_STRING);
+		$error_report->phone = filter_var($row->phone, FILTER_SANITIZE_STRING);
+		$error_report->email = filter_var($row->email, FILTER_SANITIZE_STRING);
+		$error_report->apartmentNumber = filter_var($row->apartmentNumber, FILTER_SANITIZE_STRING);
+		$error_report->masterKeyAllowed = filter_var($row->masterKeyAllowed, FILTER_SANITIZE_STRING);
+		$error_report->summary = filter_var($row->summary, FILTER_SANITIZE_STRING);
+		$error_report->id = $row->id;
+		$reports[] = $error_report;
+	} 
+
+	return $reports;
+}
+
+function remove_error_report($id) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('DELETE from error_report WHERE id = :id');  
+	$STH->execute(array( 'id' => $id));
+}
+
 
 
 ?>

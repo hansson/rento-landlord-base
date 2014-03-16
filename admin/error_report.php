@@ -110,60 +110,9 @@
     <script src="../js/global.js"></script>
 
     <script>
-    var requestData;
 
-      function reloadModal(event) {
-       $('#loading-image').css("display", "block");
-          var index = event.target.id.split('-')[1];
-          $.get('../api/interest.php?apartment=' + requestData[index].apartmentId, function(apartmentData) {
-            $('#loading-image').css("display", "none");
-            html = '';
-            for (var i = apartmentData.length - 1; i >= 0; i--) {
-              html += '<tr>';
-              html += '<td>' + apartmentData[i].name +'</td>';
-              html += '<td>' + apartmentData[i].address +'</td>';
-              html += '<td>' + apartmentData[i].phone +'</td>';
-              html += '<td>' + apartmentData[i].company +'</td>';
-              html += '<td>' + apartmentData[i].yearlyIncome +'</td>';
-              html += '<td>';
-              if(apartmentData[i].singleApplicant === 'Ja') {
-                html += '<img src="../icons/user.png" alt="Ensamsökande" title="Ensamsökande"/>'
-              } else {
-                html += '<img src="../icons/group.png" alt="Har medsökande" title="Har medsökande"/>'
-              }
-
-              if(apartmentData[i].smoker === 'Ja') {
-                html += '<img src="../icons/cigarette.png" alt="Rökare" title="Rökare"/>'  
-              }
-              if(apartmentData[i].animals === 'Ja') {
-                html += '<img src="../icons/dog.png" alt="Husdjur" title="Husdjur"/>'
-              }
-
-              html += '</td>';
-              html += '</tr>';
-              html += '<tr>';
-              html += '<td>' + apartmentData[i].socialSecurity +'</td>';
-              html += '<td>' + apartmentData[i].postalNumber + ' ' + apartmentData[i].city + '</td>';
-              html += '<td>' + apartmentData[i].email +'</td>';
-              html += '<td>' + apartmentData[i].trade +'</td>';
-              html += '<td colspan="2" class="btn-td"><button id="remove-' + i +'" name="remove" class="btn btn-danger" style="margin-right: 20px">Ta bort</button></td>';
-              html += '</tr>';
-              html += '<tr>';
-              html += '<td colspan="6"><hr/></td>';
-              html += '</tr>';
-            };
-            $('#apartment-interest-table-body').html(html);
-            $('[id^=remove-]').on('click', function(removeEvent){
-              var index = removeEvent.target.id.split('-')[1]
-              $.post('../api/interest.php','id=' + apartmentData[index].id, function(data, status) {
-                reloadModal(event);
-              });
-            });
-          });
-      }
-
-      function getInterest() {
-        $.get('../api/interest.php', function(data) {
+      function getErrorReports() {
+        $.get('../api/error_report.php', function(data) {
           var html = '';
           requestData = data;
           for (var i = data.length - 1; i >= 0; i--) {
@@ -179,12 +128,25 @@
 
           $('[id^=show-]').on('click', reloadModal);
 
+          $('[id^=show-]').on('click', function(event){
+            var index = event.target.id.split('-')[1];
+            $('#modal-name').val(data[index].name);
+            $('#modal-social-security').val(data[index].socialSecurity);
+            $('#modal-address').val(data[index].address);
+            $('#modal-phone').val(data[index].phone);
+            $('#modal-email').val(data[index].email);
+            $('#modal-apartment-number').val(data[index].apartmentNumber);
+            $('#modal-master-key-allowed').val(data[index].masterKeyAllowed);
+            $('#modal-summary').val(data[index].summary);
+            $('#modal-id').val(data[index].id);
+          });
+
         });
       }
 
       loadNavbar('admin-navbar.json');
 
-      getInterest();
+      getErrorReports();
 
       $(document).ready(function() {
 
