@@ -11,7 +11,6 @@
 
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/rento.css" rel="stylesheet">
-    <link href="../css/jquery-upload-file.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -49,13 +48,14 @@
             <table class="table table-striped">
                 <thead>
                   <tr>
-                    <td>Objekt</td>
+                    <td>Namn</td>
                     <td>Adress</td>
-                    <td>Intressenter</td>
+                    <td>Lägenhetsnummer</td>
+                    <td>Telefon</td>
                     <td></td>
                   </tr>
                 </thead>
-                <tbody id="interest-table-body">
+                <tbody id="error-report-table-body">
                 </tbody>
             </table>
         </div>
@@ -82,42 +82,32 @@
           </div>
           <div class="modal-body">
 
-            <form id="form-update" class="form-horizontal" action="../api/apartments.php" method="post">
+              <h5>Namn</h5>  
+              <p id="modal-name"></p>
 
-              <label class="control-label" for="name">Namn</label>  
-              <input id="modal-name" name="name" type="text" placeholder="" class="form-control input-md">
+              <h5>Personnummer</h5>  
+              <p id="modal-social-security"></p>
 
-              <label class="control-label" for="social-security">Personnummer</label>  
-              <input id="modal-social-security" name="social-security" type="text" placeholder="" class="form-control input-md" required>
+              <h5>Adress</h5>  
+              <p id="modal-address"></p>
 
-              <label class="control-label" for="address">Adress</label>  
-              <input id="modal-address" name="address" type="text" placeholder="" class="form-control input-md">
+              <h5>Telefon</h5>  
+              <p id="modal-phone"></p>
 
-              <label class="control-label" for="phone">Telefon</label>  
-              <input id="modal-phone" name="phone" type="text" placeholder="" class="form-control input-md">
+              <h5>Email</h5>  
+              <p id="modal-email"></p>
 
-              <label class="control-label" for="email">Email</label>  
-              <input id="modal-email" name="email" type="text" placeholder="" class="form-control input-md">
-
-              <label class="control-label" for="apartment-number">Lägenhetsnummer</label>  
-              <input id="modal-apartment-number" name="apartment-number" type="text" placeholder="" class="form-control input-md">
+              <h5>Lägenhetsnummer</h5>  
+              <p id="modal-apartment-number"></p>
                 
-              <label class="control-label" for="master-key-allowed">Huvudnyckel får användas</label>
-              <select id="modal-master-key-allowed" name="master-key-allowed" class="form-control">
-                <option value="Ja">Ja</option>
-                <option value="Nej">Nej</option>
-              </select>
+              <h5>Huvudnyckel får användas</h5>
+              <p id="modal-master-key-allowed"></p>
               
-              <label class="control-label" for="summary">Beskrivning</label>
+              
+              <h5 class="control-label" for="summary">Beskrivning</h5>
               <textarea id="modal-summary" class="form-control"  name="summary" style="height: 155px; resize: none;"></textarea>
 
               <input id="modal-id" name="id" type="hidden" placeholder="" class="form-control input-md">
-
-            </form>
-
-            <div id="modal-fileuploader" >Ladda upp bild</div>
-            <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
-            <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
 
           </div>
           <div class="modal-footer">
@@ -138,31 +128,29 @@
       function getErrorReports() {
         $.get('../api/error_report.php', function(data) {
           var html = '';
-          requestData = data;
           for (var i = data.length - 1; i >= 0; i--) {
             html += '<tr>';
-            html += '<td>' + data[i].object +'</td>';
+            html += '<td>' + data[i].name +'</td>';
             html += '<td>' + data[i].address +'</td>';
-            html += '<td>' + data[i].interestCount +'</td>';
-            html += '<td><button id="show-' + i +'" name="show" class="btn btn-info" data-toggle="modal" data-target="#interestModal">Visa intressenter</button></td>';
+            html += '<td>' + data[i].apartmentNumber +'</td>';
+            html += '<td>' + data[i].phone +'</td>';
+            html += '<td><button id="show-' + i +'" name="show" class="btn btn-info" data-toggle="modal" data-target="#show-modal">Visa felanmälan</button></td>';
             html += '</tr>';
           };
 
-          $('#interest-table-body').html(html);
-
-          $('[id^=show-]').on('click', reloadModal);
+          $('#error-report-table-body').html(html);
 
           $('[id^=show-]').on('click', function(event){
             var index = event.target.id.split('-')[1];
-            $('#modal-name').val(data[index].name);
-            $('#modal-social-security').val(data[index].socialSecurity);
-            $('#modal-address').val(data[index].address);
-            $('#modal-phone').val(data[index].phone);
-            $('#modal-email').val(data[index].email);
-            $('#modal-apartment-number').val(data[index].apartmentNumber);
-            $('#modal-master-key-allowed').val(data[index].masterKeyAllowed);
-            $('#modal-summary').val(data[index].summary);
-            $('#modal-id').val(data[index].id);
+            $('#modal-name').html(data[index].name);
+            $('#modal-social-security').html(data[index].socialSecurity);
+            $('#modal-address').html(data[index].address);
+            $('#modal-phone').html(data[index].phone);
+            $('#modal-email').html(data[index].email);
+            $('#modal-apartment-number').html(data[index].apartmentNumber);
+            $('#modal-master-key-allowed').html(data[index].masterKeyAllowed);
+            $('#modal-summary').html(data[index].summary);
+            $('#modal-id').html(data[index].id);
           });
 
         });

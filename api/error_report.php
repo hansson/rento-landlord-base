@@ -22,20 +22,20 @@
 		&& $_POST['apartment-number']
 		&& $_POST['master-key-allowed']
 		&& $_POST['summary']) {
-		$interest = new ErrorReport();
-		$interest->name = $_POST['name'];
-		$interest->address = $_POST['address'];
-		$interest->phone = $_POST['phone'];
-		$interest->email = $_POST['email'];
-		$interest->apartmentNumber = $_POST['apartment-number'];
-		$interest->masterKeyAllowed = $_POST['master-key-allowed'];
-		$interest->summary = $_POST['summary'];
+		$error_report = new ErrorReport();
+		$error_report->name = $_POST['name'];
+		$error_report->address = $_POST['address'];
+		$error_report->phone = $_POST['phone'];
+		$error_report->email = $_POST['email'];
+		$error_report->apartmentNumber = $_POST['apartment-number'];
+		$error_report->masterKeyAllowed = $_POST['master-key-allowed'];
+		$error_report->summary = $_POST['summary'];
 
 		$subject = $_POST['social-security'];
 		$pattern = '/^([0-9]{6})-([0-9]{4})$/';
 		if(preg_match($pattern, $subject, $matches) == 1) {
-			$interest->socialSecurity = $_POST['social-security'];	
-			store_interest($interest);
+			$error_report->socialSecurity = $_POST['social-security'];	
+			store_error_report($error_report);
 			echo '{"status":"OK"}';
 		} else {
 			http_response_code(400);

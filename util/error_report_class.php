@@ -6,7 +6,6 @@ class ErrorReport {
     public $phone = '';
     public $email = '';
     public $apartmentNumber = '';
-    public $email = '';
     public $masterKeyAllowed = '';
     public $summary = '';
     public $id = '';

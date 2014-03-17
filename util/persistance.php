@@ -130,7 +130,7 @@ function remove_interest($id) {
 
 function store_error_report($error_report) {
 	$DBH = get_db_connection();
-	$STH = $DBH->prepare('INSERT INTO error_report (id, name, socialSecurity, address, postalNumber, city, phone, email, company, trade, yearlyIncome, smoker, animals, singleApplicant, apartmentId) value (:id, :name, :socialSecurity, :address, :postalNumber, :city, :phone, :email, :company, :trade, :yearlyIncome, :smoker, :animals, :singleApplicant, :apartmentId)');  
+	$STH = $DBH->prepare('INSERT INTO error_report (id, name, socialSecurity, address, phone, email, apartmentNumber, masterKeyAllowed, summary) value (:id, :name, :socialSecurity, :address, :phone, :email, :apartmentNumber, :masterKeyAllowed, :summary)');  
 	$STH->execute((array)$error_report);
 }
 
