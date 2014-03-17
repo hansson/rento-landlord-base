@@ -73,32 +73,56 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="interestModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" style="width: 1100px">
+    <div class="modal fade" id="show-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Intressenter</h4>
+            <h4 class="modal-title">Felanmälan</h4>
           </div>
           <div class="modal-body">
-            <img id="loading-image" src="../img/ajax-loader.gif" class="center-image"  />
-            <table class="table no-border">
-                <thead>
-                  <tr>
-                    <td>Namn och Personnummer</td>
-                    <td>Adress</td>
-                    <td>Kontakt</td>
-                    <td>Arbete</td>
-                    <td>Årsinkomst</td>
-                    <td>Övrigt</td>
-                  </tr>
-                </thead>
-                <tbody id="apartment-interest-table-body">
-                </tbody>
-            </table>
+
+            <form id="form-update" class="form-horizontal" action="../api/apartments.php" method="post">
+
+              <label class="control-label" for="name">Namn</label>  
+              <input id="modal-name" name="name" type="text" placeholder="" class="form-control input-md">
+
+              <label class="control-label" for="social-security">Personnummer</label>  
+              <input id="modal-social-security" name="social-security" type="text" placeholder="" class="form-control input-md" required>
+
+              <label class="control-label" for="address">Adress</label>  
+              <input id="modal-address" name="address" type="text" placeholder="" class="form-control input-md">
+
+              <label class="control-label" for="phone">Telefon</label>  
+              <input id="modal-phone" name="phone" type="text" placeholder="" class="form-control input-md">
+
+              <label class="control-label" for="email">Email</label>  
+              <input id="modal-email" name="email" type="text" placeholder="" class="form-control input-md">
+
+              <label class="control-label" for="apartment-number">Lägenhetsnummer</label>  
+              <input id="modal-apartment-number" name="apartment-number" type="text" placeholder="" class="form-control input-md">
+                
+              <label class="control-label" for="master-key-allowed">Huvudnyckel får användas</label>
+              <select id="modal-master-key-allowed" name="master-key-allowed" class="form-control">
+                <option value="Ja">Ja</option>
+                <option value="Nej">Nej</option>
+              </select>
+              
+              <label class="control-label" for="summary">Beskrivning</label>
+              <textarea id="modal-summary" class="form-control"  name="summary" style="height: 155px; resize: none;"></textarea>
+
+              <input id="modal-id" name="id" type="hidden" placeholder="" class="form-control input-md">
+
+            </form>
+
+            <div id="modal-fileuploader" >Ladda upp bild</div>
+            <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
+            <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
+
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Stäng</button>
+            <button id="submit-update-form" type="button" class="btn btn-info" data-dismiss="modal">Spara</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
           </div>
 
         </div>
