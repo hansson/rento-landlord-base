@@ -2,6 +2,10 @@ body {
   padding-top: 70px;
 }
 
+h5 {
+	font-weight: bold;
+}
+
 .jumbotron { 
 	background: url(../img/houses.jpg);
 	height: 300px;
@@ -58,10 +62,14 @@ thead td {
  }
 
  .btn-td {
- 	text-align: right;
+ 	text-align: left;
  }
 
  .has-error {
  	border: 1px solid #f00;
+ }
+
+ .small-margin {
+ 	margin-left: 10px;
  }
 

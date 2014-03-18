@@ -132,10 +132,10 @@
               }
 
               if(apartmentData[i].smoker === 'Ja') {
-                html += '<img src="../icons/cigarette.png" alt="Rökare" title="Rökare"/>'  
+                html += '<img src="../icons/cigarette.png" alt="Rökare" title="Rökare" class="small-margin"/>'  
               }
               if(apartmentData[i].animals === 'Ja') {
-                html += '<img src="../icons/dog.png" alt="Husdjur" title="Husdjur"/>'
+                html += '<img src="../icons/dog.png" alt="Husdjur" title="Husdjur" class="small-margin"/>'
               }
 
               html += '</td>';
@@ -145,7 +145,8 @@
               html += '<td>' + apartmentData[i].postalNumber + ' ' + apartmentData[i].city + '</td>';
               html += '<td>' + apartmentData[i].email +'</td>';
               html += '<td>' + apartmentData[i].trade +'</td>';
-              html += '<td colspan="2" class="btn-td"><button id="remove-' + i +'" name="remove" class="btn btn-danger" style="margin-right: 20px">Ta bort</button></td>';
+              html += '<td></td>'
+              html += '<td class="btn-td"><button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
               html += '</tr>';
               html += '<tr>';
               html += '<td colspan="6"><hr/></td>';

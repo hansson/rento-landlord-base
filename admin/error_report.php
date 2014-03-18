@@ -73,7 +73,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="show-modal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="error-report-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -105,13 +105,13 @@
               
               
               <h5 class="control-label" for="summary">Beskrivning</h5>
-              <textarea id="modal-summary" class="form-control"  name="summary" style="height: 155px; resize: none;"></textarea>
+              <p id="modal-summary"></p>
 
               <input id="modal-id" name="id" type="hidden" placeholder="" class="form-control input-md">
 
           </div>
           <div class="modal-footer">
-            <button id="submit-update-form" type="button" class="btn btn-info" data-dismiss="modal">Spara</button>
+            <button id="remove-error-report" type="button" class="btn btn-info" data-dismiss="modal">Ta bort felanmälan</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
           </div>
 
@@ -124,6 +124,7 @@
     <script src="../js/global.js"></script>
 
     <script>
+    
 
       function getErrorReports() {
         $.get('../api/error_report.php', function(data) {
@@ -134,7 +135,7 @@
             html += '<td>' + data[i].address +'</td>';
             html += '<td>' + data[i].apartmentNumber +'</td>';
             html += '<td>' + data[i].phone +'</td>';
-            html += '<td><button id="show-' + i +'" name="show" class="btn btn-info" data-toggle="modal" data-target="#show-modal">Visa felanmälan</button></td>';
+            html += '<td><button id="show-' + i +'" name="show" class="btn btn-info" data-toggle="modal" data-target="#error-report-modal">Visa felanmälan</button></td>';
             html += '</tr>';
           };
 
@@ -151,6 +152,12 @@
             $('#modal-master-key-allowed').html(data[index].masterKeyAllowed);
             $('#modal-summary').html(data[index].summary);
             $('#modal-id').html(data[index].id);
+
+            $('#remove-error-report').off('click').on('click', function(event){
+              $.post('../api/error_report.php','id=' + data[index].id, function(data, status) {
+                getErrorReports();
+              });
+            });
           });
 
         });
@@ -159,10 +166,6 @@
       loadNavbar('admin-navbar.json');
 
       getErrorReports();
-
-      $(document).ready(function() {
-
-      });
     </script>
 
   </body>
