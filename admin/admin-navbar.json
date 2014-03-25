@@ -15,6 +15,10 @@
     {
       "text": "Felanmälningar",
       "link": "error_report.php"
+    },
+    {
+      "text": "Kontakt",
+      "link": "contact.php"
     }
   ]
 }

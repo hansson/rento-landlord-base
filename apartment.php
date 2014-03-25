@@ -135,7 +135,7 @@
               <label class="control-label" for="phone">Telefon</label>  
               <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md">
 
-              <label class="control-label" for="email">Epost</label>  
+              <label class="control-label" for="email">E-post</label>  
               <input id="email" name="email" type="text" placeholder="" class="form-control input-md">
 
               <label class="control-label" for="company">Arbetsgivare</label>  
