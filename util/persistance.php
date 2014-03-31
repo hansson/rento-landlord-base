@@ -2,6 +2,7 @@
 require 'apartment_class.php';
 require 'interest_class.php';
 require 'error_report_class.php';
+require 'contact_class.php';
 
 function get_db_connection() {
 	try { 
@@ -159,6 +160,37 @@ function fetch_error_reports() {
 function remove_error_report($id) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('DELETE from error_report WHERE id = :id');  
+	$STH->execute(array( 'id' => $id));
+}
+
+function store_contact($contact) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('INSERT INTO contacts (id, name,position, phone, email, imageName) value (:id, :name, :position, :phone, :email, :imageName)');  
+	$STH->execute((array)$contact);
+}
+
+function fetch_contacts() {
+	$DBH = get_db_connection();
+	$STH = $DBH->query('SELECT name, position, phone, email, imageName, id from contacts');  
+	$STH->setFetchMode(PDO::FETCH_OBJ); 
+	$contacts = array();
+	while($row = $STH->fetch()) {  
+		$contact = new Contact();
+		$contact->name = filter_var($row->name, FILTER_SANITIZE_STRING);
+		$contact->position = filter_var($row->position, FILTER_SANITIZE_STRING);
+		$contact->email = filter_var($row->email, FILTER_SANITIZE_STRING);
+		$contact->phone = filter_var($row->phone, FILTER_SANITIZE_STRING);
+		$contact->imageName = filter_var($row->imageName, FILTER_SANITIZE_STRING);
+		$contact->id = $row->id;
+		$contacts[] = $contact;
+	} 
+
+	return $contacts;
+}
+
+function remove_contact($id) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('DELETE from contacts WHERE id = :id');  
 	$STH->execute(array( 'id' => $id));
 }
 

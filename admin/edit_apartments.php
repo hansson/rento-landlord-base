@@ -289,12 +289,11 @@
             $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('.alert-info').show();
+            $('.modal-body .alert-info').show();
             $('#modal-image-name').val(data[0]);
-            $('#form-update').submit();
           },
           onError: function(files,status,errMsg) {
-            $('.alert-error').show();
+            $('.modal-body .alert-error').show();
           }
         });
 

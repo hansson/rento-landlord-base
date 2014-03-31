@@ -46,3 +46,13 @@ CREATE TABLE `error_report` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `contacts` (
+  `name` varchar(64) DEFAULT NULL,
+  `position` varchar(64) DEFAULT NULL,
+  `phone` varchar(16) DEFAULT NULL,
+  `email` varchar(64) DEFAULT NULL,
+  `imageName` varchar(64) DEFAULT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

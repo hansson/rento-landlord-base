@@ -45,70 +45,6 @@
 
       <div class="row">
 
-        <form id="create-form" class="form-horizontal" action="../api/apartments.php" method="post">
-
-          <div class="col-md-3">
-
-            <label class="control-label" for="object">Objekt</label>  
-            <input id="object" name="object" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="address">Adress</label>  
-            <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="city">Ort</label>  
-            <input id="city" name="city" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="area">Område</label>  
-            <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="floor">Våning</label>  
-            <input id="floor" name="floor" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="elevator">Hiss</label>
-            <select id="elevator" name="elevator" class="form-control">
-              <option value="Ja">Ja</option>
-              <option value="Nej">Nej</option>
-            </select>
-
-            <label class="control-label" for="free-from">Ledig från</label>  
-            <input id="free-from" name="free-from" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="save"></label>
-          </div>
-
-          <div class="col-md-3">
-            <label class="control-label" for="rent">Hyra</label>  
-            <input id="rent" name="rent" type="text" placeholder="" class="form-control input-md">           
-         
-            <label class="control-label" for="size">Storlek</label>  
-            <input id="size" name="size" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="rooms">Rum</label>  
-            <input id="rooms" name="rooms" type="text" placeholder="" class="form-control input-md">
-
-            <label class="control-label" for="summary">Beskrivning</label>
-            <textarea class="form-control" id="summary" name="summary" style="height: 171px; resize: none;"></textarea>
-
-            <div id="contact-image-uploader">Ladda upp bild</div>
-            <input id="modal-new-image-name" name="modal-new-image-name" type="hidden" placeholder="" class="form-control input-md">
-
-          </div>
-
-          <div class="col-md-3">
-            <p style="margin-top: 22px">Fält kan läggas till eller tas bort beroende på just ert behov.</p>
-          </div>
-
-          <div class="col-md-12"  style="margin-top: 5px">
-            <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
-            <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
-            <button id="save" name="save" class="btn btn-success">Spara</button>
-            <hr>
-          </div>
-
-
-
-        </form>
-
         <div class="row">
           <div class="col-md-12">
           <h3>Kontakter</h3>
@@ -147,11 +83,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Ändra lägenhet</h4>
+            <h4 class="modal-title">Lägg till kontakt</h4>
           </div>
           <div class="modal-body">
 
-            <form id="form-update" class="form-horizontal" action="../api/contacts.php" method="post">
+            <form id="form-new" class="form-horizontal" action="../api/contacts.php" method="post">
 
               <label class="control-label" for="name">Namn</label>  
               <input id="modal-new-name" name="name" type="text" placeholder="" class="form-control input-md">
@@ -169,7 +105,7 @@
 
             </form>
 
-            <div id="new-contact-image-uploader" >Ladda upp bild</div>
+            <div id="new-contact-image-uploader">Ladda upp bild</div>
             <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
             <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
 
@@ -189,7 +125,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Ändra lägenhet</h4>
+            <h4 class="modal-title">Ändra kontakt</h4>
           </div>
           <div class="modal-body">
 
@@ -233,42 +169,32 @@
     <script src="../js/jquery-upload-file.js"></script>
     <script>
       function getContacts() {
-        $.get('../api/apartments.php', function(data) {
+        $.get('../api/contacts.php', function(data) {
           var html = '';
           for (var i = data.length - 1; i >= 0; i--) {
             html += '<tr>';
-            html += '<td>' + data[i].object +'</td>';
-            html += '<td>' + data[i].address +'</td>';
-            html += '<td>' + data[i].rent +'</td>';
-            html += '<td>' + data[i].size +'</td>';
-            html += '<td>' + data[i].rooms +'</td>';
-            html += '<td>' + data[i].freeFrom +'</td>';
-            html += '<td><button id="update-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#update-contact-modal">Ändra</button> <button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
+            html += '<td>' + data[i].name +'</td>';
+            html += '<td>' + data[i].position +'</td>';
+            html += '<td>' + data[i].email +'</td>';
+            html += '<td>' + data[i].phone +'</td>';
+            html += '<td><button id="update-btn-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#update-contact-modal">Ändra</button> <button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
             html += '</tr>';
           };
 
           $('#apartment-table-body').html(html);
 
-          $('[id^=update-]').on('click', function(event){
-            var index = event.target.id.split('-')[1];
-            $('#modal-object').val(data[index].object);
-            $('#modal-address').val(data[index].address);
-            $('#modal-rent').val(data[index].rent);
-            $('#modal-size').val(data[index].size);
-            $('#modal-rooms').val(data[index].rooms);
-            $('#modal-floor').val(data[index].floor);
-            $('#modal-elevator').val(data[index].elevator);
-            $('#modal-city').val(data[index].city);
-            $('#modal-area').val(data[index].area);
-            $('#modal-free-from').val(data[index].freeFrom);
-            $('#modal-summary').val(data[index].summary);
-            $('#modal-id').val(data[index].id);
+          $('[id^=update-btn-]').on('click', function(event){
+            var index = event.target.id.split('-')[2];
+            $('#modal-update-name').val(data[index].name);
+            $('#modal-update-position').val(data[index].position);
+            $('#modal-update-email').val(data[index].email);
+            $('#modal-update-phone').val(data[index].phone);
             $('#modal-update-image-name').val(data[index].imageName);
           });
 
           $('[id^=remove-]').on('click', function(event){
             var index = event.target.id.split('-')[1]
-            $.post('../api/apartments.php','id=' + data[index].id, function(data, status) {
+            $.post('../api/contacts.php','id=' + data[index].id, function(data, status) {
               getContacts();
             });
           });
@@ -276,18 +202,12 @@
         });
       }
 
-      function resetForm() {
-        $('#object').val("");
-        $('#address').val("");
-        $('#rent').val("");
-        $('#size').val("");
-        $('#rooms').val("");
-        $('#floor').val("");
-        $('#elevator').val("");
-        $('#city').val("");
-        $('#area').val("");
-        $('#free-from').val("");
-        $('#summary').val("");
+      function resetNewContactForm() {
+        $('#modal-new-name').val("");
+        $('#modal-new-position').val("");
+        $('#modal-new-email').val("");
+        $('#modal-new-phone').val("");
+        $('#modal-new-image-name').val("");
       }
 
       loadNavbar('admin-navbar.json');
@@ -310,20 +230,20 @@
           onSuccess: function(files,data,xhr){
             $('.alert-info').show();
             $('#modal-update-image-name').val(data[0]);
-            $('#form-update').submit();
           },
           onError: function(files,status,errMsg) {
             $('.alert-error').show();
           }
         });
 
-        $("#contact-image-uploader").uploadFile({
+        $("#new-contact-image-uploader").uploadFile({
           url:"../api/images.php",
-          fileName:"apartment-image",
+          fileName:"contact-image",
           dragDrop: false,
           showDone: false,
           showStatusAfterSuccess: false,
           showError: false,
+          
           onSubmit: function(files) {
             $('.alert').hide();
           },
@@ -340,6 +260,10 @@
           $('#form-update').submit();
         });
 
+        $('#submit-new-form').on('click', function(event){
+          $('#form-new').submit();
+        });
+
         $('form').on('submit', function(event){
 
           var link = $(this).attr('action');
@@ -348,8 +272,9 @@
 
           $.post(link,$(this).serialize(),function(data, status) {
             $("#update-contact-modal").modal('hide');
-            resetForm();
-            getApartments();
+            $("#new-contact-modal").modal('hide');
+            resetNewContactForm();
+            getContacts();
           });
 
           return false;

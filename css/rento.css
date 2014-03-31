@@ -6,37 +6,37 @@ h5 {
 	font-weight: bold;
 }
 
-.jumbotron { 
+.jumbotron {
 	background: url(../img/houses.jpg);
 	height: 300px;
 }
 
-.green { 
+.green {
 	background-color: #5cb85c;
 	color: #eee;
 }
 
-.blue { 
+.blue {
 	background-color: #428bca;
 	color: #eee;
 }
 
-.orange { 
+.orange {
 	background-color: #f0ad4e;
 	color: #eee;
 }
 
-.info-box { 
+.info-box {
 	height: 380px;
 	font-size: 16px;
 }
 
-.col-md-4, .col-md-8 { 
+.col-md-4, .col-md-8 {
 	border-radius:15px;
 	border: 5px solid #fff;
 }
 
-thead td { 
+thead td {
 	font-weight: bold;
 }
 
@@ -44,11 +44,11 @@ thead td {
 	margin-top: 5px;
 }
 
-.ajax-file-upload {
-	width: 100%;
+.ajax-file-upload, .ajax-file-upload form input {
+	width: 100% !important;
 	text-align: center;
-	vertical-align: center;
-	height: 35px;
+	vertical-align: middle;
+	height: 35px !important;
 }
 
 .center-image {
@@ -57,8 +57,8 @@ thead td {
     margin-right: auto;
 }
 
-.no-border th, .no-border td { 
-     border-top: none !important; 
+.no-border th, .no-border td {
+     border-top: none !important;
  }
 
  .btn-td {
@@ -78,4 +78,3 @@ thead td {
  	max-width: 100px;
  	max-height: 200px;
  }
-
