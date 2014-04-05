@@ -188,6 +188,12 @@ function fetch_contacts() {
 	return $contacts;
 }
 
+function update_contact($contact) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('UPDATE contacts SET name = :name, position = :position, phone = :phone, email = :email, imageName = :imageName WHERE id =:id');  
+	$STH->execute((array)$contact);
+}
+
 function remove_contact($id) {
 	$DBH = get_db_connection();
 	$STH = $DBH->prepare('DELETE from contacts WHERE id = :id');  

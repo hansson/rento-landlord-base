@@ -47,6 +47,11 @@
 
         <div class="row">
           <div class="col-md-12">
+          <h3>Övrig kontaktinformation</h3>
+          <textarea id="other-contact-info" name="info" class="std-textarea"></textarea>
+          <button id="submit-info" name="submit-info" class="btn btn-success" style="margin-top: 10px">Spara</button>
+
+          <hr />
           <h3>Kontakter</h3>
           <button id="new-contact" name="new-contact" class="btn btn-success" style="margin-bottom: 20px" data-toggle="modal" data-target="#new-contact-modal">Ny kontakt</button>
 
@@ -167,7 +172,9 @@
     <script src="../js/global.js"></script>
 
     <script src="../js/jquery-upload-file.js"></script>
+    <script type="text/javascript" src="../js/nicEdit.js"></script>
     <script>
+      bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
       function getContacts() {
         $.get('../api/contacts.php', function(data) {
           var html = '';
@@ -190,6 +197,7 @@
             $('#modal-update-email').val(data[index].email);
             $('#modal-update-phone').val(data[index].phone);
             $('#modal-update-image-name').val(data[index].imageName);
+            $('#modal-update-id').val(data[index].id);
           });
 
           $('[id^=remove-]').on('click', function(event){
@@ -228,7 +236,7 @@
             $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('.alert-info').show();
+            $('#update-contact-modal .alert-info').show();
             $('#modal-update-image-name').val(data[0]);
           },
           onError: function(files,status,errMsg) {
@@ -248,7 +256,7 @@
             $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('.alert-info').show();
+            $('#new-contact-modal .alert-info').show();
             $('#modal-new-image-name').val(data[0]);
           },
           onError: function(files,status,errMsg) {
@@ -262,6 +270,12 @@
 
         $('#submit-new-form').on('click', function(event){
           $('#form-new').submit();
+        });
+
+        $('#submit-info').on('click', function(event){
+          $.post('../api/contacts.php','info=' + nicEditors.findEditor("other-contact-info").getContent(), function(data, status) {
+              //TODO: Show message
+          });
         });
 
         $('form').on('submit', function(event){
