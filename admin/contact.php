@@ -174,7 +174,6 @@
     <script src="../js/jquery-upload-file.js"></script>
     <script type="text/javascript" src="../js/nicEdit.js"></script>
     <script>
-      bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
       function getContacts() {
         $.get('../api/contacts.php', function(data) {
           var html = '';
@@ -217,6 +216,11 @@
         $('#modal-new-phone').val("");
         $('#modal-new-image-name').val("");
       }
+
+      bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+      $.get('../api/info.php?contact=1',function(data){
+        nicEditors.findEditor("other-contact-info").setContent(data);
+      });
 
       loadNavbar('admin-navbar.json');
 
@@ -273,7 +277,7 @@
         });
 
         $('#submit-info').on('click', function(event){
-          $.post('../api/contacts.php','info=' + nicEditors.findEditor("other-contact-info").getContent(), function(data, status) {
+          $.post('../api/info.php','contact=' + nicEditors.findEditor("other-contact-info").getContent(), function(data, status) {
               //TODO: Show message
           });
         });

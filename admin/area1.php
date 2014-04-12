@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="sv">
   <head>
@@ -9,8 +10,9 @@
 
     <title>Hyresvärd - Rento.nu</title>
 
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/rento.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/rento.css" rel="stylesheet">
+    <link href="../css/jquery-upload-file.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -19,7 +21,6 @@
   </head>
 
   <body>
-
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -31,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Rento.nu</a>
+          <a class="navbar-brand" href="#">Rento.nu </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -43,48 +44,46 @@
     <div class="container">
 
       <div class="row">
-          <div class="col-md-12">
-              <h2>Kontakt</h2>
-              <div id="contact-info" style="word-wrap: break-word"></div>
-          </div>
-          <div id="staff-container" class="col-md-12">
 
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Område 1</h3>
+            <textarea id="area1-info" name="info" class="std-textarea"></textarea>
+            <button id="submit-info" name="submit-info" class="btn btn-success" style="margin-top: 10px">Spara</button>
           </div>
       </div>
-
-
     </div> <!-- /container -->
 
     <div id="footer">
       <div class="container">
+        <hr />
         <p class="text-muted">Place sticky footer content here.</p>
       </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/global.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/global.js"></script>
+
+    <script type="text/javascript" src="../js/nicEdit.js"></script>
     <script>
-      loadNavbar('navbar.json');
-      $.get('api/info.php?contact=1',function(data){
-        $('#contact-info').html(data);
+
+      bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+      $.get('../api/info.php?area1=1',function(data){
+        nicEditors.findEditor("area1-info").setContent(data);
       });
 
-      $.get('api/contacts.php',function(data){
-        if(data.length > 0) {
-          var html = '<h2>Personal</h2>';
-          for (var i = 0; i < data.length; i++) {
-            html += '<div class="col-md-4 contact">';
-            html += '<img src="img/contacts/' + data[i].imageName + '" class="img-responsive img-rounded img-contact" />';
-            html +=  data[i].name + '<br />';
-            html +=  data[i].position + '<br />';
-            html +=  data[i].email + '<br />';
-            html +=  data[i].phone + '<br />';
-            html += '</div>';
-          };
-          $('#staff-container').html(html);
-        } 
-        
+      loadNavbar('admin-navbar.json');
+
+      $('.alert').hide();
+
+      $(document).ready(function() {
+        $('#submit-info').on('click', function(event){
+          $.post('../api/info.php','area1=' + nicEditors.findEditor("area1-info").getContent(), function(data, status) {
+              //TODO: Show message
+          });
+        });
+
       });
     </script>
 

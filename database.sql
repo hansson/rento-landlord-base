@@ -56,3 +56,18 @@ CREATE TABLE `contacts` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `info` (
+  `name` varchar(32) NOT NULL,
+  `value` text NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `info` (name, value) VALUES ('contact','');
+INSERT INTO `info` (name, value) VALUES ('area1','');
+INSERT INTO `info` (name, value) VALUES ('area2','');
+INSERT INTO `info` (name, value) VALUES ('rules','');
+INSERT INTO `info` (name, value) VALUES ('move_in','');
+INSERT INTO `info` (name, value) VALUES ('move_out','');

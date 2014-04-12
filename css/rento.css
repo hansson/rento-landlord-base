@@ -73,9 +73,13 @@ thead td {
  	margin-left: 10px;
  }
 
+ .contact {
+ 	overflow: hidden;
+ }
+
  .img-contact {
  	margin-bottom: 2px;
- 	max-width: 100px;
+ 	max-width: 150px;
  	max-height: 200px;
  }
 

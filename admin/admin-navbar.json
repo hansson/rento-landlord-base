@@ -19,6 +19,31 @@
     {
       "text": "Kontakt",
       "link": "contact.php"
+    },
+    {
+      "text": "Övriga sidor",
+      "subPage": [
+        {
+          "text": "Område 1",
+          "link": "area1.php"
+        },
+        {
+          "text": "Område 2",
+          "link": "area2.php"
+        },
+        {
+          "text": "Ordningsregler",
+          "link": "rules.php"
+        },
+        {
+          "text": "Inflytt",
+          "link": "move_in.php"
+        },
+        {
+          "text": "Avflytt",
+          "link": "move_out.php"
+        }
+      ]
     }
   ]
 }

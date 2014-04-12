@@ -200,6 +200,19 @@ function remove_contact($id) {
 	$STH->execute(array( 'id' => $id));
 }
 
+function store_info($infoType, $info) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('UPDATE info SET value = :info WHERE name = :name');  
+	$STH->execute(array( 'info' => $info, 'name' => $infoType));
+}
 
+function fetch_info($infoType) {
+	$DBH = get_db_connection();
+	$STH = $DBH->prepare('SELECT value from info WHERE name = :name');  
+	$STH->execute(array( 'name' => $infoType));
+	while($row = $STH->fetch(PDO::FETCH_OBJ)) {  
+		return $row->value;
+	} 
+}
 
 ?>

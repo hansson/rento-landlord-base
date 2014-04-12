@@ -37,18 +37,6 @@
           "link": "move_out.php"
         },
         {
-          "text": "Sida",
-          "link": "#"
-        },
-        {
-          "text": "...",
-          "link": "#"
-        },
-        {
-          "text": "Sida",
-          "link": "#"
-        },
-        {
           "text": "Felanmälan",
           "link": "error_report.php"
         }

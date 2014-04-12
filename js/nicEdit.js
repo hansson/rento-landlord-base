@@ -17,7 +17,7 @@ var nicEditorConfig = bkClass.extend({
 		'left' : {name : __('Vänsterjustera'), command : 'justifyleft', noActive : true},
 		'center' : {name : __('Centrera'), command : 'justifycenter', noActive : true},
 		'right' : {name : __('Högerjustera'), command : 'justifyright', noActive : true},
-		'justify' : {name : __('Justera'), command : 'justifyfull', noActive : true},
+		'justify' : {name : __('Justera'), command : 'justifyfull', noActive : false},
 		'ol' : {name : __('Numrerad lista'), command : 'insertorderedlist', tags : ['OL']},
 		'ul' : 	{name : __('Punktlista'), command : 'insertunorderedlist', tags : ['UL']},
 		'subscript' : {name : __('Click to Subscript'), command : 'subscript', tags : ['SUB']},
