@@ -1,10 +1,6 @@
 {
   "pages": [
     {
-      "text": "Admin",
-      "link": "index.php"
-    },
-    {
       "text": "Lediga lägenheter",
       "link": "edit_apartments.php"
     },
@@ -17,20 +13,12 @@
       "link": "error_report.php"
     },
     {
-      "text": "Kontakt",
-      "link": "contact.php"
+      "text": "Områden",
+      "link": "areas.php"
     },
     {
-      "text": "Övriga sidor",
+      "text": "Hyresgästinfo",
       "subPage": [
-        {
-          "text": "Område 1",
-          "link": "area1.php"
-        },
-        {
-          "text": "Område 2",
-          "link": "area2.php"
-        },
         {
           "text": "Ordningsregler",
           "link": "rules.php"
@@ -44,6 +32,10 @@
           "link": "move_out.php"
         }
       ]
+    },
+    {
+      "text": "Kontakt",
+      "link": "contact.php"
     }
   ]
 }

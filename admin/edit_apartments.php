@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Rento.nu </a>
+          <a class="navbar-brand" href="index.php">Rento.nu </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -133,12 +133,6 @@
 
 
     </div> <!-- /container -->
-
-    <div id="footer">
-      <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
-      </div>
-    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">

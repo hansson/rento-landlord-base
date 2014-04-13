@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Rento.nu </a>
+          <a class="navbar-brand" href="index.php">Rento.nu </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -47,19 +47,13 @@
 
         <div class="row">
           <div class="col-md-12">
-            <h3>Område 1</h3>
-            <textarea id="area1-info" name="info" class="std-textarea"></textarea>
+            <h3>Ordningsregler</h3>
+            <textarea id="rules-info" name="info" class="std-textarea"></textarea>
             <button id="submit-info" name="submit-info" class="btn btn-success" style="margin-top: 10px">Spara</button>
+            <div class="alert alert-info"><strong>Text uppdaterad!</strong></div>
           </div>
       </div>
     </div> <!-- /container -->
-
-    <div id="footer">
-      <div class="container">
-        <hr />
-        <p class="text-muted">Place sticky footer content here.</p>
-      </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
@@ -67,20 +61,19 @@
 
     <script type="text/javascript" src="../js/nicEdit.js"></script>
     <script>
+      $('.alert').hide();
 
       bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-      $.get('../api/info.php?area1=1',function(data){
-        nicEditors.findEditor("area1-info").setContent(data);
+      $.get('../api/info.php?rules=1',function(data){
+        nicEditors.findEditor("rules-info").setContent(data);
       });
 
       loadNavbar('admin-navbar.json');
 
-      $('.alert').hide();
-
       $(document).ready(function() {
         $('#submit-info').on('click', function(event){
-          $.post('../api/info.php','area1=' + nicEditors.findEditor("area1-info").getContent(), function(data, status) {
-              //TODO: Show message
+          $.post('../api/info.php','rules=' + nicEditors.findEditor("rules-info").getContent(), function(data, status) {
+              $('.alert').show();
           });
         });
 
