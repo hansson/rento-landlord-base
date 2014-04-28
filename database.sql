@@ -57,6 +57,15 @@ CREATE TABLE `contacts` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `areas` (
+  `name` varchar(64) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `image1` varchar(16) DEFAULT NULL,
+  `image2` varchar(64) DEFAULT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `info` (
   `name` varchar(32) NOT NULL,
@@ -66,8 +75,6 @@ CREATE TABLE `info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `info` (name, value) VALUES ('contact','');
-INSERT INTO `info` (name, value) VALUES ('area1','');
-INSERT INTO `info` (name, value) VALUES ('area2','');
 INSERT INTO `info` (name, value) VALUES ('rules','');
 INSERT INTO `info` (name, value) VALUES ('move_in','');
 INSERT INTO `info` (name, value) VALUES ('move_out','');
