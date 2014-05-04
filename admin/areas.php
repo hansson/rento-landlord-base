@@ -47,25 +47,17 @@
 
         <div class="row">
           <div class="col-md-12">
-          <h3>Övrig kontaktinformation</h3>
-          <textarea id="other-contact-info" name="info" class="std-textarea"></textarea>
-          <button id="submit-info" name="submit-info" class="btn btn-success" style="margin-top: 10px">Spara</button>
-
-          <hr />
-          <h3>Kontakter</h3>
-          <button id="new-contact" name="new-contact" class="btn btn-success" style="margin-bottom: 20px" data-toggle="modal" data-target="#new-contact-modal">Ny kontakt</button>
+          <button id="new-area" name="new-area" class="btn btn-success" style="margin-bottom: 20px" data-toggle="modal" data-target="#new-area-modal">Nytt område</button>
 
           <table class="table table-striped">
                 <thead>
                   <tr>
                     <td>Namn</td>
-                    <td>Position</td>
-                    <td>E-post</td>
-                    <td>Telefon</td>
+                    <td>Beskrivning</td>
                     <td></td>
                   </tr>
                 </thead>
-                <tbody id="apartment-table-body">
+                <tbody id="area-table-body">
                 </tbody>
             </table>
         </div>
@@ -77,7 +69,7 @@
     </div> <!-- /container -->
 
     <!-- New Modal -->
-    <div class="modal fade" id="new-contact-modal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="new-area-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -86,25 +78,21 @@
           </div>
           <div class="modal-body">
 
-            <form id="form-new" class="form-horizontal" action="../api/contacts.php" method="post">
+            <form id="form-new" class="form-horizontal" action="../api/areas.php" method="post">
 
               <label class="control-label" for="name">Namn</label>  
               <input id="modal-new-name" name="name" type="text" placeholder="" class="form-control input-md">
 
-              <label class="control-label" for="position">Position</label>  
-              <input id="modal-new-position" name="position" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="description">Beskrivning</label>  
+              <input id="modal-new-description" name="description" type="text" placeholder="" class="form-control input-md">
 
-              <label class="control-label" for="email">E-post</label>  
-              <input id="modal-new-email" name="email" type="text" placeholder="" class="form-control input-md">
-
-              <label class="control-label" for="phone">Telefon</label>  
-              <input id="modal-new-phone" name="phone" type="text" placeholder="" class="form-control input-md">
-
-              <input id="modal-new-image-name" name="image-name" type="hidden" placeholder="" class="form-control input-md">
+              <input id="modal-new-image-name-1" name="image-name-1" type="hidden" placeholder="" class="form-control input-md">
+              <input id="modal-new-image-name-2" name="image-name-2" type="hidden" placeholder="" class="form-control input-md">
 
             </form>
 
-            <div id="new-contact-image-uploader">Ladda upp bild</div>
+            <div id="new-area-image-uploader-1">Ladda upp bild</div>
+            <div id="new-area-image-uploader-2">Ladda upp bild</div>
             <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
             <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
 
@@ -119,7 +107,7 @@
     </div>
 
     <!-- Update Modal -->
-    <div class="modal fade" id="update-contact-modal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="update-area-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -128,26 +116,22 @@
           </div>
           <div class="modal-body">
 
-            <form id="form-update" class="form-horizontal" action="../api/contacts.php" method="post">
+            <form id="form-update" class="form-horizontal" action="../api/areas.php" method="post">
 
               <label class="control-label" for="name">Namn</label>  
               <input id="modal-update-name" name="name" type="text" placeholder="" class="form-control input-md">
 
-              <label class="control-label" for="position">Position</label>  
-              <input id="modal-update-position" name="position" type="text" placeholder="" class="form-control input-md">
-
-              <label class="control-label" for="email">E-post</label>  
-              <input id="modal-update-email" name="email" type="text" placeholder="" class="form-control input-md">
-
-              <label class="control-label" for="phone">Telefon</label>  
-              <input id="modal-update-phone" name="phone" type="text" placeholder="" class="form-control input-md">
+              <label class="control-label" for="description">Beskrivning</label>  
+              <input id="modal-update-description" name="description" type="text" placeholder="" class="form-control input-md">
 
               <input id="modal-update-id" name="id" type="hidden" placeholder="" class="form-control input-md">
-              <input id="modal-update-image-name" name="image-name" type="hidden" placeholder="" class="form-control input-md">
+              <input id="modal-update-image-name-1" name="image-name-1" type="hidden" placeholder="" class="form-control input-md">
+              <input id="modal-update-image-name-2" name="image-name-2" type="hidden" placeholder="" class="form-control input-md">
 
             </form>
 
-            <div id="update-contact-image-uploader" >Ladda upp bild</div>
+            <div id="update-area-image-uploader-1" >Ladda upp bild</div>
+            <div id="update-area-image-uploader-2" >Ladda upp bild</div>
             <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
             <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
 
@@ -166,66 +150,56 @@
     <script src="../js/global.js"></script>
 
     <script src="../js/jquery-upload-file.js"></script>
-    <script type="text/javascript" src="../js/nicEdit.js"></script>
     <script>
-      function getContacts() {
-        $.get('../api/contacts.php', function(data) {
+      function getAreas() {
+        $.get('../api/areas.php', function(data) {
           var html = '';
           for (var i = data.length - 1; i >= 0; i--) {
             html += '<tr>';
             html += '<td>' + data[i].name +'</td>';
-            html += '<td>' + data[i].position +'</td>';
-            html += '<td>' + data[i].email +'</td>';
-            html += '<td>' + data[i].phone +'</td>';
-            html += '<td><button id="update-btn-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#update-contact-modal">Ändra</button> <button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
+            html += '<td>' + data[i].description +'</td>';
+            html += '<td><button id="update-btn-' + i +'" name="update" class="btn btn-info" data-toggle="modal" data-target="#update-area-modal">Ändra</button> <button id="remove-' + i +'" name="remove" class="btn btn-danger">Ta bort</button></td>';
             html += '</tr>';
           };
 
-          $('#apartment-table-body').html(html);
+          $('#area-table-body').html(html);
 
           $('[id^=update-btn-]').on('click', function(event){
             var index = event.target.id.split('-')[2];
             $('#modal-update-name').val(data[index].name);
-            $('#modal-update-position').val(data[index].position);
-            $('#modal-update-email').val(data[index].email);
-            $('#modal-update-phone').val(data[index].phone);
-            $('#modal-update-image-name').val(data[index].imageName);
+            $('#modal-update-description').val(data[index].description);
+            $('#modal-update-image-name-1').val(data[index].imageName1);
+            $('#modal-update-image-name-2').val(data[index].imageName2);
             $('#modal-update-id').val(data[index].id);
           });
 
           $('[id^=remove-]').on('click', function(event){
             var index = event.target.id.split('-')[1]
-            $.post('../api/contacts.php','id=' + data[index].id, function(data, status) {
-              getContacts();
+            $.post('../api/areas.php','id=' + data[index].id, function(data, status) {
+              getAreas();
             });
           });
 
         });
       }
 
-      function resetNewContactForm() {
+      function resetNewAreaForm() {
         $('#modal-new-name').val("");
-        $('#modal-new-position').val("");
-        $('#modal-new-email').val("");
-        $('#modal-new-phone').val("");
-        $('#modal-new-image-name').val("");
+        $('#modal-new-description').val("");
+        $('#modal-new-image-name-1').val("");
+        $('#modal-new-image-name-2').val("");
       }
-
-      bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-      $.get('../api/info.php?contact=1',function(data){
-        nicEditors.findEditor("other-contact-info").setContent(data);
-      });
 
       loadNavbar('admin-navbar.json');
 
-      getContacts();
+      getAreas();
 
       $('.alert').hide();
 
       $(document).ready(function() {
-        $("#update-contact-image-uploader").uploadFile({
+        $("#update-area-image-uploader-1").uploadFile({
           url:"../api/images.php",
-          fileName:"contact-image",
+          fileName:"area-image",
           dragDrop: false,
           showDone: false,
           showStatusAfterSuccess: false,
@@ -234,17 +208,36 @@
             $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('#update-contact-modal .alert-info').show();
-            $('#modal-update-image-name').val(data[0]);
+            $('#update-area-modal .alert-info').show();
+            $('#modal-update-image-name-1').val(data[0]);
           },
           onError: function(files,status,errMsg) {
             $('.alert-error').show();
           }
         });
 
-        $("#new-contact-image-uploader").uploadFile({
+        $("#update-area-image-uploader-2").uploadFile({
           url:"../api/images.php",
-          fileName:"contact-image",
+          fileName:"area-image",
+          dragDrop: false,
+          showDone: false,
+          showStatusAfterSuccess: false,
+          showError: false,
+          onSubmit: function(files) {
+            $('.alert').hide();
+          },
+          onSuccess: function(files,data,xhr){
+            $('#update-area-modal .alert-info').show();
+            $('#modal-update-image-name-2').val(data[0]);
+          },
+          onError: function(files,status,errMsg) {
+            $('.alert-error').show();
+          }
+        });
+
+        $("#new-area-image-uploader-1").uploadFile({
+          url:"../api/images.php",
+          fileName:"area-image",
           dragDrop: false,
           showDone: false,
           showStatusAfterSuccess: false,
@@ -254,8 +247,28 @@
             $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('#new-contact-modal .alert-info').show();
-            $('#modal-new-image-name').val(data[0]);
+            $('#new-area-modal .alert-info').show();
+            $('#modal-new-image-name-1').val(data[0]);
+          },
+          onError: function(files,status,errMsg) {
+            $('.alert-error').show();
+          }
+        });
+
+        $("#new-area-image-uploader-2").uploadFile({
+          url:"../api/images.php",
+          fileName:"area-image",
+          dragDrop: false,
+          showDone: false,
+          showStatusAfterSuccess: false,
+          showError: false,
+          
+          onSubmit: function(files) {
+            $('.alert').hide();
+          },
+          onSuccess: function(files,data,xhr){
+            $('#new-area-modal .alert-info').show();
+            $('#modal-new-image-name-2').val(data[0]);
           },
           onError: function(files,status,errMsg) {
             $('.alert-error').show();
@@ -270,12 +283,6 @@
           $('#form-new').submit();
         });
 
-        $('#submit-info').on('click', function(event){
-          $.post('../api/info.php','contact=' + nicEditors.findEditor("other-contact-info").getContent(), function(data, status) {
-              //TODO: Show message
-          });
-        });
-
         $('form').on('submit', function(event){
 
           var link = $(this).attr('action');
@@ -283,10 +290,10 @@
           $('.alert').hide();
 
           $.post(link,$(this).serialize(),function(data, status) {
-            $("#update-contact-modal").modal('hide');
-            $("#new-contact-modal").modal('hide');
-            resetNewContactForm();
-            getContacts();
+            $("#update-area-modal").modal('hide');
+            $("#new-area-modal").modal('hide');
+            resetNewAreaForm();
+            getAreas();
           });
 
           return false;
