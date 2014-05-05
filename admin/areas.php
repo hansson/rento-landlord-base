@@ -74,9 +74,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Lägg till kontakt</h4>
+            <h4 class="modal-title">Lägg till område</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="height: 530px">
 
             <form id="form-new" class="form-horizontal" action="../api/areas.php" method="post">
 
@@ -84,17 +84,22 @@
               <input id="modal-new-name" name="name" type="text" placeholder="" class="form-control input-md">
 
               <label class="control-label" for="description">Beskrivning</label>  
-              <input id="modal-new-description" name="description" type="text" placeholder="" class="form-control input-md">
+              <textarea id="modal-new-description" class="form-control"  name="description" style="height: 155px; resize: none;"></textarea>
 
               <input id="modal-new-image-name-1" name="image-name-1" type="hidden" placeholder="" class="form-control input-md">
               <input id="modal-new-image-name-2" name="image-name-2" type="hidden" placeholder="" class="form-control input-md">
 
             </form>
-
-            <div id="new-area-image-uploader-1">Ladda upp bild</div>
-            <div id="new-area-image-uploader-2">Ladda upp bild</div>
-            <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
-            <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
+            <div>
+            <div class="img-area-container">
+              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area" />
+              <div id="new-area-image-uploader-1">Ändra</div>
+            </div>
+            <div class="img-area-container">
+              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area" />
+              <div id="new-area-image-uploader-2">Ändra</div>
+            </div>
+            </div>
 
           </div>
           <div class="modal-footer">
@@ -112,9 +117,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Ändra kontakt</h4>
+            <h4 class="modal-title">Ändra område</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="height: 530px">
 
             <form id="form-update" class="form-horizontal" action="../api/areas.php" method="post">
 
@@ -122,18 +127,21 @@
               <input id="modal-update-name" name="name" type="text" placeholder="" class="form-control input-md">
 
               <label class="control-label" for="description">Beskrivning</label>  
-              <input id="modal-update-description" name="description" type="text" placeholder="" class="form-control input-md">
+              <textarea id="modal-update-description" class="form-control"  name="description" style="height: 155px; resize: none;"></textarea>
 
               <input id="modal-update-id" name="id" type="hidden" placeholder="" class="form-control input-md">
               <input id="modal-update-image-name-1" name="image-name-1" type="hidden" placeholder="" class="form-control input-md">
               <input id="modal-update-image-name-2" name="image-name-2" type="hidden" placeholder="" class="form-control input-md">
 
             </form>
-
-            <div id="update-area-image-uploader-1" >Ladda upp bild</div>
-            <div id="update-area-image-uploader-2" >Ladda upp bild</div>
-            <div class="alert alert-info"><strong>Bild uppladdad!</strong></div>
-            <div class="alert alert-error"><strong>Ops! Något gick snett!</strong></div>
+            <div class="img-area-container">
+              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area"/>
+              <div id="update-area-image-uploader-1" >Ändra</div>
+            </div>
+            <div class="img-area-container">
+              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area"/>
+              <div id="update-area-image-uploader-2" >Ändra</div>
+            </div>
 
           </div>
           <div class="modal-footer">
@@ -204,6 +212,7 @@
           showDone: false,
           showStatusAfterSuccess: false,
           showError: false,
+          uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
             $('.alert').hide();
           },
@@ -223,6 +232,7 @@
           showDone: false,
           showStatusAfterSuccess: false,
           showError: false,
+          uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
             $('.alert').hide();
           },
@@ -242,7 +252,7 @@
           showDone: false,
           showStatusAfterSuccess: false,
           showError: false,
-          
+          uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
             $('.alert').hide();
           },
@@ -262,7 +272,7 @@
           showDone: false,
           showStatusAfterSuccess: false,
           showError: false,
-          
+          uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
             $('.alert').hide();
           },

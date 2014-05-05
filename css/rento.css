@@ -49,6 +49,7 @@ thead td {
 	text-align: center;
 	vertical-align: middle;
 	height: 35px !important;
+  	padding: 8px 10px 4px 10px !important; 
 }
 
 .center-image {
@@ -87,3 +88,41 @@ thead td {
  	width: 100%;
  	height: 300px;
  }
+
+ .img-area {
+	margin-top: 15px;
+	margin-right: 5px;
+	max-width: 274px;
+	max-height: 207px;
+ }
+ .img-area-container {
+ 	float: left;
+ 	margin-bottom: 50px;
+ }
+
+ /*Semi custom upload button */
+
+ .area-upload-button {
+	cursor:pointer;	
+  	display: inline-block;
+	background: #fff;
+  	border: 1px solid #e8e8e8;
+  	color: #888;
+  	text-decoration: none;
+  	border-radius: 3px;
+  	-webkit-border-radius: 3px;
+  	-moz-border-radius: 3px;
+  	padding: 8px 10px 4px 10px; 
+  	color: #fff;
+  	background: #5cb85c;
+  	border: none;
+  	vertical-align:middle;
+  	text-align: center;
+	width: 274px !important;
+	height: 35px !important;
+  	margin-top: 5px;
+}
+  
+.area-upload-button:hover {
+      background: #47a447;
+}
