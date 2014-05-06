@@ -11,6 +11,11 @@ if(isset($_FILES["apartment-image"])) {
   $tmpName = $_FILES["contact-image"]["tmp_name"];
   $outputDir = "../img/contacts/";
   upload_image($outputDir, $name, $tmpName);
+} else if(isset($_FILES['area-image'])) {
+  $name = $_FILES["area-image"]["name"];
+  $tmpName = $_FILES["area-image"]["tmp_name"];
+  $outputDir = "../img/areas/";
+  upload_image($outputDir, $name, $tmpName);
 }
 
 function upload_image($outputDir, $name, $tmpName) {

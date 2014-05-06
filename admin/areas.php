@@ -92,11 +92,11 @@
             </form>
             <div>
             <div class="img-area-container">
-              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area" />
+              <img id="new-area-image-1" src="../img/no-area.jpg" class="img-responsive img-rounded img-area" />
               <div id="new-area-image-uploader-1">Ändra</div>
             </div>
             <div class="img-area-container">
-              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area" />
+              <img id="new-area-image-2" src="../img/no-area.jpg" class="img-responsive img-rounded img-area" />
               <div id="new-area-image-uploader-2">Ändra</div>
             </div>
             </div>
@@ -135,11 +135,11 @@
 
             </form>
             <div class="img-area-container">
-              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area"/>
+              <img id="update-area-image-1" src="../img/no-area.jpg" class="img-responsive img-rounded img-area"/>
               <div id="update-area-image-uploader-1" >Ändra</div>
             </div>
             <div class="img-area-container">
-              <img src="../img/houses.jpg" class="img-responsive img-rounded img-area"/>
+              <img id="update-area-image-2" src="../img/no-area.jpg" class="img-responsive img-rounded img-area"/>
               <div id="update-area-image-uploader-2" >Ändra</div>
             </div>
 
@@ -196,13 +196,13 @@
         $('#modal-new-description').val("");
         $('#modal-new-image-name-1').val("");
         $('#modal-new-image-name-2').val("");
+        $('#update-area-image-1').attr("src","../img/no-area.jpg");
+        $('#update-area-image-1').attr("src","../img/no-area.jpg");
       }
 
       loadNavbar('admin-navbar.json');
 
       getAreas();
-
-      $('.alert').hide();
 
       $(document).ready(function() {
         $("#update-area-image-uploader-1").uploadFile({
@@ -214,14 +214,12 @@
           showError: false,
           uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
-            $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('#update-area-modal .alert-info').show();
+            $('#update-area-modal').show();
             $('#modal-update-image-name-1').val(data[0]);
           },
           onError: function(files,status,errMsg) {
-            $('.alert-error').show();
           }
         });
 
@@ -234,14 +232,12 @@
           showError: false,
           uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
-            $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('#update-area-modal .alert-info').show();
+            $('#update-area-modal').show();
             $('#modal-update-image-name-2').val(data[0]);
           },
           onError: function(files,status,errMsg) {
-            $('.alert-error').show();
           }
         });
 
@@ -254,14 +250,12 @@
           showError: false,
           uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
-            $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('#new-area-modal .alert-info').show();
+            $('#new-area-modal').show();
             $('#modal-new-image-name-1').val(data[0]);
           },
           onError: function(files,status,errMsg) {
-            $('.alert-error').show();
           }
         });
 
@@ -274,14 +268,12 @@
           showError: false,
           uploadButtonClass: "area-upload-button",
           onSubmit: function(files) {
-            $('.alert').hide();
           },
           onSuccess: function(files,data,xhr){
-            $('#new-area-modal .alert-info').show();
+            $('#new-area-modal').show();
             $('#modal-new-image-name-2').val(data[0]);
           },
           onError: function(files,status,errMsg) {
-            $('.alert-error').show();
           }
         });
 
@@ -296,8 +288,6 @@
         $('form').on('submit', function(event){
 
           var link = $(this).attr('action');
-
-          $('.alert').hide();
 
           $.post(link,$(this).serialize(),function(data, status) {
             $("#update-area-modal").modal('hide');
